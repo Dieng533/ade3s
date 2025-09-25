@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADE3S – Association pour le Développement Économique, Sanitaire et Social</title>
+  <meta name="description" content="ADE3S – Environnement, Santé, Social & Économie à Saint-Louis et Gandon.">
+  
+  <!-- Polices Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="./assets/logo_adess.png" type="image/x-icon">
+  <!-- CSS personnalisé -->
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-dark: #1F6B47;
+      --primary-light: #E8F5E9;
+      --secondary: #FF7E36;
+      --dark: #1A2E35;
+      --light: #F8F9FA;
+      --gray: #6C757D;
+      --white: #FFFFFF;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header et Navigation */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .logo img {
+      height: 50px;
+      width: auto;
+      margin-right: 10px;
+      transition: var(--transition);
+    }
+
+    
+    /* Logo adaptatif */
+    .navbar-scrolled .logo img {
+      height: 40px;
+    }
+    
+    .navbar-scrolled .logo {
+      font-size: 1.3rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      opacity: 0.1;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--white);
+      color: var(--primary);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+      margin-left: 15px;
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--white);
+      color: var(--primary);
+    }
+    
+    /* Section Styles */
+    .section {
+      padding: 100px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .section-title p {
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      color: var(--gray);
+    }
+    
+    /* About Section */
+    .about {
+      background-color: var(--light);
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .about-text h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+    }
+    
+    .about-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+    
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    /* President Section */
+    .president-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .president-content {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+    }
+    
+    .president-image {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .president-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .president-text {
+      padding: 40px;
+    }
+    
+    .president-text h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .president-text .position {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    
+    .president-text p {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+    }
+    
+    .signature {
+      margin-top: 2rem;
+      font-style: italic;
+    }
+    
+    /* Projects Section */
+    .projects {
+      background-color: var(--light);
+    }
+    
+    .projects-filter {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      background: none;
+      border: none;
+      padding: 8px 20px;
+      margin: 0 5px 10px;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    .filter-btn:not(.active):hover {
+      background-color: rgba(46, 139, 87, 0.1);
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+    
+    .project-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+    
+    .project-content {
+      padding: 25px;
+    }
+    
+    .project-category {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    
+    .project-description {
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    
+    .project-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .status-ongoing {
+      background-color: #E8F5E9;
+      color: var(--primary);
+    }
+    
+    .status-upcoming {
+      background-color: #FFF3E0;
+      color: #FF9800;
+    }
+    
+    .status-planned {
+      background-color: #E3F2FD;
+      color: #2196F3;
+    }
+    
+    .project-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .project-link i {
+      margin-left: 5px;
+      transition: var(--transition);
+    }
+    
+    .project-link:hover i {
+      transform: translateX(5px);
+    }
+    
+    /* Domains Section */
+    .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .domain-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .domain-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .domain-icon {
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary);
+      font-size: 2rem;
+    }
+    
+    .domain-card h3 {
+      margin-bottom: 15px;
+    }
+    
+    .domain-card p {
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 80px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+      padding-left: 5px;
+    }
+    
+    .contact-info {
+      list-style: none;
+    }
+    
+    .contact-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-info i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .president-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .president-image {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero {
+        padding: 140px 0 80px;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 80px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 15px;
+        display: block;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .president-text {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="bi bi-list"></i>
+        </button>
+        
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="actions.html">Nos Actions</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="blog.html">Actualités</a></li>
+          <li><a href="donate.html">Don / Partenariat</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Association pour le Développement Économique, Sanitaire et Social</h1>
+        <p>Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages</p>
+        <div>
+          <a href="actions.html" class="btn btn-primary">Découvrir nos actions</a>
+          <a href="donate.html" class="btn btn-secondary">Nous soutenir</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about">
+    <div class="container">
+      <div class="section-title">
+        <h2>Qui sommes-nous</h2>
+        <p>Découvrez notre mission, notre vision et notre engagement pour le développement durable de notre région</p>
+      </div>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Notre engagement pour un avenir meilleur</h3>
+          <p>L'Association pour le Développement Économique, Sanitaire et Social (ADE3S) est une organisation à but non lucratif fondée en 2019 à Saint-Louis, Sénégal.</p>
+          <p>Notre mission est de contribuer au développement durable de la région de Saint-Louis et de Gandon à travers des actions concrètes dans les domaines de l'environnement, de la santé, du social et de l'économie.</p>
+          <p>Nous travaillons en étroite collaboration avec les communautés locales pour identifier leurs besoins et mettre en place des solutions adaptées et durables.</p>
+          <a href="about.html" class="btn btn-primary">En savoir plus</a>
+        </div>
+        
+        <div class="about-image">
+          <img src="./assets/plantation.jpg" alt="Équipe ADE3S">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- President Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Mot du Président</h2>
+        <p>Le message de notre président fondateur</p>
+      </div>
+      
+      <div class="president-card">
+        <div class="president-content">
+          <div class="president-image">
+            <img src="./assets/tof-president.jpeg" alt="Président ADE3S">
+          </div>
+          
+          <div class="president-text">
+            <h3>Dr Ousmane Fall</h3>
+            <p class="position">Président Fondateur d'ADE3S</p>
+            <p>"Chers partenaires, membres et amis de l'ADE3S,</p>
+            <p>Depuis notre création, nous nous engageons sans relâche pour le développement durable de notre région. Chaque arbre planté, chaque consultation médicale offerte, chaque famille soutenue représente une étape vers un avenir meilleur pour nos communautés.</p>
+            <p>Je suis fier du chemin parcouru et reconnaissant envers tous ceux qui nous soutiennent dans cette mission. Ensemble, continuons à œuvrer pour un développement équilibré qui respecte notre environnement tout en améliorant les conditions de vie de nos concitoyens."</p>
+            <div class="signature">
+              <p>Dr Ousmane Fall</p>
+              <p>Président d'ADE3S</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section projects">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos Actions & Projets</h2>
+        <p>Découvrez nos initiatives en cours et à venir pour le développement de notre région</p>
+      </div>
+      
+      <div class="projects-filter">
+        <button class="filter-btn active" data-filter="all">Tous les projets</button>
+        <button class="filter-btn" data-filter="environment">Environnement</button>
+        <button class="filter-btn" data-filter="health">Santé</button>
+        <button class="filter-btn" data-filter="social">Social</button>
+        <button class="filter-btn" data-filter="economy">Économie</button>
+      </div>
+      
+      <div class="projects-grid">
+        <!-- Projet 1 -->
+        <div class="project-card" data-category="environment">
+          <div class="project-image">
+            <img src="./assets/plan1.jpg" alt="Campagne de Reboisement">
+          </div>
+          <div class="project-content">
+            <span class="project-category">Environnement</span>
+            <h3 class="project-title">Campagne de Reboisement</h3>
+            <p class="project-description">Plantation de 3000 arbres à Gandon et ses villages pour lutter contre la désertification.</p>
+            <div class="project-status">
+              <span class="status-badge status-ongoing">En cours</span>
+              <a href="actions.html" class="project-link">Voir plus <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Projet 2 -->
+        <div class="project-card" data-category="health">
+          <div class="project-image">
+            <img src="./assets/don0.jpg" alt="Consultations Médicales Gratuites">
+          </div>
+          <div class="project-content">
+            <span class="project-category">Santé</span>
+            <h3 class="project-title">Consultations Médicales Gratuites</h3>
+            <p class="project-description">Organisation de consultations gratuites et distribution de médicaments à Poundioum.</p>
+            <div class="project-status">
+              <span class="status-badge status-ongoing">En cours</span>
+              <a href="actions.html" class="project-link">Voir plus <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Projet 3 -->
+        <div class="project-card" data-category="economy">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Soutien à l'Agriculture Locale">
+          </div>
+          <div class="project-content">
+            <span class="project-category">Économie</span>
+            <h3 class="project-title">Soutien à l'Agriculture Locale</h3>
+            <p class="project-description">Formation et équipement des agriculteurs locaux pour améliorer leur productivité.</p>
+            <div class="project-status">
+              <span class="status-badge status-upcoming">À venir</span>
+              <a href="actions.html" class="project-link">Voir plus <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 50px;">
+        <a href="projects.html" class="btn btn-primary">Voir tous nos projets</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Domains Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos Domaines d'Action</h2>
+        <p>Les quatre piliers de notre engagement pour le développement durable</p>
+      </div>
+      
+      <div class="domains-grid">
+        <!-- Domaine 1 -->
+        <div class="domain-card">
+          <div class="domain-icon">
+            <i class="bi bi-tree"></i>
+          </div>
+          <h3>Environnement</h3>
+          <p>Plantations d'arbres, sensibilisations, lutte contre le changement climatique et préservation des écosystèmes.</p>
+          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+        </div>
+        
+        <!-- Domaine 2 -->
+        <div class="domain-card">
+          <div class="domain-icon">
+            <i class="bi bi-heart-pulse"></i>
+          </div>
+          <h3>Santé</h3>
+          <p>Dons de médicaments, matériels, consultations gratuites et campagnes de sensibilisation sanitaire.</p>
+          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+        </div>
+        
+        <!-- Domaine 3 -->
+        <div class="domain-card">
+          <div class="domain-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <h3>Social</h3>
+          <p>Soutien aux familles, éducation, formation et amélioration des conditions de vie des communautés.</p>
+          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+        </div>
+        
+        <!-- Domaine 4 -->
+        <div class="domain-card">
+          <div class="domain-icon">
+            <i class="bi bi-graph-up"></i>
+          </div>
+          <h3>Économie</h3>
+          <p>Appui aux initiatives locales, création d'emplois et développement économique durable.</p>
+          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>ADE3S</h3>
+          <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <div class="social-links">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Liens rapides</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="actions.html">Nos Actions</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="blog.html">Actualités</a></li>
+            <li><a href="donate.html">Don / Partenariat</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Nos domaines</h3>
+          <ul class="footer-links">
+            <li><a href="actions.html#env">Environnement</a></li>
+            <li><a href="actions.html#sante">Santé</a></li>
+            <li><a href="actions.html#social">Social</a></li>
+            <li><a href="actions.html#social">Économie</a></li>
+            <li><a href="donate.html">Partenariats</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul class="contact-info">
+            <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
+            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
+            <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
+            <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Menu mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+    
+    // Filtrage des projets
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Retirer la classe active de tous les boutons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Ajouter la classe active au bouton cliqué
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        projectCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

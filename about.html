@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>À propos – ADE3S</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-dark: #1F6B47;
+      --primary-light: #E8F5E9;
+      --secondary: #FF7E36;
+      --dark: #1A2E35;
+      --light: #F8F9FA;
+      --gray: #6C757D;
+      --white: #FFFFFF;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+      padding-top: 76px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header et Navigation */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .logo img {
+      height: 50px;
+      width: auto;
+      margin-right: 10px;
+      transition: var(--transition);
+    }
+    
+    .logo-icon {
+      color: var(--primary);
+      margin-right: 10px;
+      font-size: 1.8rem;
+    }
+    
+    /* Logo adaptatif */
+    .header-scrolled .logo img {
+      height: 40px;
+    }
+    
+    .header-scrolled .logo {
+      font-size: 1.3rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      opacity: 0.1;
+    }
+    
+    .page-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .page-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+    
+    .page-hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    /* Section Styles */
+    .section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .section-title p {
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      color: var(--gray);
+    }
+    
+    /* Mission/Vision Section */
+    .mission-vision {
+      background-color: var(--light);
+    }
+    
+    .mission-card, .vision-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .mission-card::before, .vision-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    }
+    
+    .mission-icon, .vision-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    /* Valeurs Section */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .value-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      height: 100%;
+      border-top: 4px solid var(--primary);
+    }
+    
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary);
+      font-size: 2rem;
+    }
+    
+    .value-card h3 {
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    .value-card p {
+      color: var(--gray);
+    }
+    
+    /* Zones d'intervention */
+    .zones-section {
+      background-color: var(--light);
+    }
+    
+    .zones-map {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+    
+    .zones-map img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .zones-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .zones-list li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+    
+    .zones-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    /* Équipe Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .team-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+      height: 100%;
+    }
+    
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .team-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .team-card:hover .team-image img {
+      transform: scale(1.05);
+    }
+    
+    .team-info {
+      padding: 25px 20px;
+    }
+    
+    .team-name {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    
+    .team-role {
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    
+    /* Boutons personnalisés */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      color: var(--white);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 80px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+      padding-left: 5px;
+    }
+    
+    .contact-info {
+      list-style: none;
+    }
+    
+    .contact-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-info i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .page-hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+        margin-left: 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .page-hero {
+        padding: 100px 0 60px;
+      }
+      
+      .page-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+          ADE3S
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html" class="active">À propos</a></li>
+          <li><a href="actions.html">Nos Actions</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="blog.html">Actualités</a></li>
+          <li><a href="donate.html">Don / Partenariat</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <h1>À propos de l'ADE3S</h1>
+        <p>Association pour le Développement Économique, Sanitaire et Social – Saint-Louis, Sénégal</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission et Vision -->
+  <section class="section mission-vision">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="mission-card">
+            <div class="mission-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h2>Notre Mission</h2>
+            <p>Promouvoir le bien-être des populations par des actions concrètes dans l'environnement, la santé, le social et l'économie locale. Nous œuvrons pour un développement durable qui améliore les conditions de vie tout en préservant les ressources naturelles pour les générations futures.</p>
+            <p>Notre approche est basée sur la participation communautaire et la co-construction de solutions adaptées aux réalités locales.</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="vision-card">
+            <div class="vision-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h2>Notre Vision</h2>
+            <p>Des communautés résilientes, solidaires et respectueuses de l'environnement, où chaque individu peut s'épanouir dans un cadre de vie sain et durable.</p>
+            <p>Nous aspirons à un équilibre harmonieux entre développement humain et préservation de l'environnement, où les initiatives locales sont valorisées et où la solidarité est le fondement des relations sociales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Valeurs -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos Valeurs</h2>
+        <p>Les principes qui guident chacune de nos actions et décisions</p>
+      </div>
+      
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h3>Solidarité et équité</h3>
+          <p>Nous croyons en la force de la communauté et œuvrons pour une société plus juste où chacun a sa place et peut contribuer au bien-être collectif.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3>Transparence et redevabilité</h3>
+          <p>Nous rendons compte de nos actions et de l'utilisation des ressources qui nous sont confiées, avec une communication ouverte et honnête.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Engagement communautaire</h3>
+          <p>Nous travaillons avec les communautés, pas pour elles. Leur participation active est au cœur de notre approche de développement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zones d'intervention -->
+  <section class="section zones-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Zones d'intervention</h2>
+        <p>Nous intervenons principalement dans la région de Saint-Louis et ses environs</p>
+      </div>
+      
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6">
+          <div class="zones-map">
+            <img src="./assets/images/pontsl.jpeg" alt="Région de Saint-Louis">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3>Communautés que nous servons</h3>
+          <p>Notre action s'étend sur plusieurs localités de la région de Saint-Louis, avec un focus particulier sur les zones rurales et périurbaines où les besoins sont les plus importants.</p>
+          
+          <ul class="zones-list">
+            <li>Saint-Louis (ville)</li>
+            <li>Gandon (Commune)</li>
+            <li>Mérina Sall</li>
+            <li>Makka Toubé</li>
+            <li>Rao</li>
+            <li>Sanar</li>
+            <li>Cité Niakh</li>
+            <li>Et plusieurs autres villages environnants</li>
+          </ul>
+          
+          <p class="mt-4">Dans chacune de ces communautés, nous travaillons en étroite collaboration avec les leaders locaux, les associations et les habitants pour identifier les besoins prioritaires et co-construire des solutions durables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Équipe -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Notre Équipe</h2>
+        <p>Découvrez les personnes engagées qui font vivre l'ADE3S au quotidien</p>
+      </div>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/tof-president.jpeg" alt="Président ADE3S">
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Dr Ousmane Fall</h4>
+            <p class="team-role">Président Fondateur</p>
+            <p>Fondateur de l'ADE3S avec une vision claire du développement durable pour la région.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/max.jpeg" alt="Coordinatrice ADE3S">
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Ing. Maguette Dieng</h4>
+            <p class="team-role">Coordonateur Régional</p>
+            <p>Gère la mise en œuvre de nos initiatives sur le terrain avec passion et dévouement.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/papesognane.jpeg" alt="Trésorier ADE3S">
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Pape Yero Sognane</h4>
+            <p class="team-role">Coordonateur Communal</p>
+            <p>Assure la gestion transparente des ressources de l'association.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-5">
+        <a href="contact.html" class="btn btn-primary">Rejoindre notre équipe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2>Vous souhaitez en savoir plus ?</h2>
+          <p class="mb-4">N'hésitez pas à nous contacter pour découvrir comment vous pouvez vous impliquer dans nos actions ou soutenir notre mission.</p>
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="contact.html" class="btn btn-primary">Nous contacter</a>
+            <a href="actions.html" class="btn btn-outline">Voir nos actions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>ADE3S</h3>
+          <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Liens rapides</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="actions.html">Nos Actions</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Saint-Louis, Sénégal</li>
+            <li><i class="fas fa-phone"></i> +221 33 123 45 67</li>
+            <li><i class="fas fa-envelope"></i> contact@ade3s.org</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Menu mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+    
+    // Animation des éléments au défilement
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Appliquer l'animation aux cartes de valeurs
+    document.addEventListener('DOMContentLoaded', function() {
+      const valueCards = document.querySelectorAll('.value-card');
+      const missionCards = document.querySelectorAll('.mission-card, .vision-card');
+      const teamCards = document.querySelectorAll('.team-card');
+      
+      valueCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+      
+      missionCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+      
+      teamCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

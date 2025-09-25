@@ -1,0 +1,42 @@
+-- MySQL schema for ADE3S
+CREATE DATABASE IF NOT EXISTS ade3s CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE ade3s;
+
+CREATE TABLE IF NOT EXISTS actions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  description TEXT,
+  type ENUM('environnement','sante','social') NOT NULL,
+  date_action DATE,
+  images JSON NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS projets (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) NOT NULL,
+  statut ENUM('realise','en_cours','a_venir') NOT NULL DEFAULT 'a_venir',
+  description TEXT,
+  avancement TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS articles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  content MEDIUMTEXT,
+  image VARCHAR(255),
+  published_at DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS messages_contact (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(160) NOT NULL,
+  phone VARCHAR(60),
+  message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+

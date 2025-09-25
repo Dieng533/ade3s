@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projets – ADE3S</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="./assets/logo_adess.png" type="image/x-icon">
+
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-dark: #1F6B47;
+      --primary-light: #E8F5E9;
+      --secondary: #FF7E36;
+      --dark: #1A2E35;
+      --light: #F8F9FA;
+      --gray: #6C757D;
+      --white: #FFFFFF;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    
+    /* Header et Navigation */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .logo img {
+      height: 40px;
+      width: auto;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      opacity: 0.1;
+    }
+    
+    .page-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .page-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+    
+    .page-hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    /* Filtres de projets */
+    .projects-filter {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .filter-btn {
+      background: none;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      background-color: var(--light);
+      color: var(--gray);
+    }
+    
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    .filter-btn:not(.active):hover {
+      background-color: rgba(46, 139, 87, 0.1);
+      color: var(--primary);
+    }
+    
+    /* Cartes de projets améliorées */
+    .project-card {
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      overflow: hidden;
+      height: 100%;
+      margin-bottom: 30px;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+    
+    .project-content {
+      padding: 25px;
+    }
+    
+    .project-status {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .status-completed {
+      background-color: #E8F5E9;
+      color: var(--primary);
+    }
+    
+    .status-ongoing {
+      background-color: #FFF3E0;
+      color: #FF9800;
+    }
+    
+    .status-upcoming {
+      background-color: #E3F2FD;
+      color: #2196F3;
+    }
+    
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    
+    .project-description {
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    
+    .project-progress {
+      margin-bottom: 20px;
+    }
+    
+    .progress {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #f0f0f0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      border-radius: 4px;
+    }
+    
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 5px;
+    }
+    
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+    }
+    
+    .project-date {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .project-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .project-link i {
+      margin-left: 5px;
+      transition: var(--transition);
+    }
+    
+    .project-link:hover i {
+      transform: translateX(5px);
+    }
+    
+    /* Section CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--dark) 0%, #2a3e47 100%);
+      color: var(--white);
+      padding: 80px 0;
+      text-align: center;
+      border-radius: var(--radius);
+      margin: 80px 0;
+    }
+    
+    .cta-section h2 {
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    
+    .cta-section p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+    
+    .btn-custom {
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-primary-custom {
+      background-color: var(--primary);
+      color: var(--white);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-primary-custom:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      color: var(--white);
+    }
+    
+    .btn-outline-custom {
+      background-color: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+      margin-left: 15px;
+    }
+    
+    .btn-outline-custom:hover {
+      background-color: var(--white);
+      color: var(--dark);
+    }
+    
+    /* Footer amélioré */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 60px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+      padding-left: 5px;
+    }
+    
+    .contact-info {
+      list-style: none;
+    }
+    
+    .contact-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-info i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .page-hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .page-hero {
+        padding: 140px 0 80px;
+      }
+      
+      .page-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .btn-outline-custom {
+        margin-left: 0;
+        margin-top: 15px;
+        display: block;
+      }
+      
+      .projects-filter {
+        justify-content: flex-start;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="bi bi-list"></i></button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="actions.html">Nos Actions</a></li>
+          <li><a href="projects.html" class="active">Projets</a></li>
+          <li><a href="blog.html">Actualités</a></li>
+          <li><a href="donate.html">Don / Partenariat</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <h1>Nos Projets</h1>
+        <p>Découvrez les initiatives que nous menons pour le développement durable de Saint-Louis, Gandon et ses villages</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Filtres -->
+    <div class="projects-filter">
+      <button class="filter-btn active" data-filter="all">Tous les projets</button>
+      <button class="filter-btn" data-filter="completed">Réalisés</button>
+      <button class="filter-btn" data-filter="ongoing">En cours</button>
+      <button class="filter-btn" data-filter="upcoming">À venir</button>
+    </div>
+    
+    <!-- Grille de projets -->
+    <div class="row">
+      <!-- Projet 1 -->
+      <div class="col-lg-4 col-md-6" data-status="completed">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Reboisement">
+          </div>
+          <div class="project-content">
+            <span class="project-status status-completed">Réalisé</span>
+            <h3 class="project-title">Reboisement – 3000+ arbres</h3>
+            <p class="project-description">Plantation de plus de 3000 arbres dans les villages de Gandon pour lutter contre la désertification et préserver l'écosystème local.</p>
+            
+            <div class="project-progress">
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress-info">
+                <span>Progression</span>
+                <span>100%</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="project-date">
+                <i class="far fa-calendar me-1"></i> Terminé en 2023
+              </div>
+              <a href="#" class="project-link">
+                Voir détails <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projet 2 -->
+      <div class="col-lg-4 col-md-6" data-status="ongoing">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1589923188657-2d27e6af0d6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nouvelle campagne de reboisement">
+          </div>
+          <div class="project-content">
+            <span class="project-status status-ongoing">En cours</span>
+            <h3 class="project-title">Nouvelle campagne de reboisement</h3>
+            <p class="project-description">Extension des plantations et sensibilisations communautaires pour renforcer notre action environnementale.</p>
+            
+            <div class="project-progress">
+              <div class="progress">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress-info">
+                <span>Progression</span>
+                <span>45%</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="project-date">
+                <i class="far fa-calendar me-1"></i> Débuté en 2024
+              </div>
+              <a href="#" class="project-link">
+                Voir détails <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projet 3 -->
+      <div class="col-lg-4 col-md-6" data-status="upcoming">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dons de médicaments">
+          </div>
+          <div class="project-content">
+            <span class="project-status status-upcoming">À venir</span>
+            <h3 class="project-title">Dons de médicaments</h3>
+            <p class="project-description">Préparation de kits médicaux pour les dispensaires locaux afin d'améliorer l'accès aux soins de santé.</p>
+            
+            <div class="project-progress">
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress-info">
+                <span>Progression</span>
+                <span>10%</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="project-date">
+                <i class="far fa-calendar me-1"></i> Prévu pour 2024
+              </div>
+              <a href="#" class="project-link">
+                Voir détails <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projet 4 -->
+      <div class="col-lg-4 col-md-6" data-status="upcoming">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Soutien à l'agriculture">
+          </div>
+          <div class="project-content">
+            <span class="project-status status-upcoming">À venir</span>
+            <h3 class="project-title">Soutien à l'agriculture locale</h3>
+            <p class="project-description">Formation et équipement des agriculteurs locaux pour améliorer leur productivité et leur résilience climatique.</p>
+            
+            <div class="project-progress">
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress-info">
+                <span>Progression</span>
+                <span>5%</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="project-date">
+                <i class="far fa-calendar me-1"></i> Prévu pour 2024
+              </div>
+              <a href="#" class="project-link">
+                Voir détails <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projet 5 -->
+      <div class="col-lg-4 col-md-6" data-status="ongoing">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sensibilisation environnementale">
+          </div>
+          <div class="project-content">
+            <span class="project-status status-ongoing">En cours</span>
+            <h3 class="project-title">Sensibilisation environnementale</h3>
+            <p class="project-description">Campagnes de sensibilisation dans les écoles et communautés sur les enjeux environnementaux et climatiques.</p>
+            
+            <div class="project-progress">
+              <div class="progress">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress-info">
+                <span>Progression</span>
+                <span>70%</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="project-date">
+                <i class="far fa-calendar me-1"></i> Débuté en 2023
+              </div>
+              <a href="#" class="project-link">
+                Voir détails <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projet 6 -->
+      <div class="col-lg-4 col-md-6" data-status="completed">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Distribution de kits scolaires">
+          </div>
+          <div class="project-content">
+            <span class="project-status status-completed">Réalisé</span>
+            <h3 class="project-title">Distribution de kits scolaires</h3>
+            <p class="project-description">Distribution de fournitures scolaires aux enfants défavorisés pour favoriser leur réussite éducative.</p>
+            
+            <div class="project-progress">
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="progress-info">
+                <span>Progression</span>
+                <span>100%</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <div class="project-date">
+                <i class="far fa-calendar me-1"></i> Terminé en 2023
+              </div>
+              <a href="#" class="project-link">
+                Voir détails <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Vous souhaitez soutenir nos projets ?</h2>
+        <p>Votre contribution nous permet de poursuivre et d'étendre nos actions pour le développement durable de notre région.</p>
+        <div class="mt-4">
+          <a href="donate.html" class="btn btn-primary-custom btn-custom">Faire un don</a>
+          <a href="contact.html" class="btn btn-outline-custom btn-custom">Devenir partenaire</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>ADE3S</h3>
+          <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <div class="social-links">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Liens rapides</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="actions.html">Nos Actions</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="blog.html">Actualités</a></li>
+            <li><a href="donate.html">Don / Partenariat</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Nos domaines</h3>
+          <ul class="footer-links">
+            <li><a href="actions.html#env">Environnement</a></li>
+            <li><a href="actions.html#sante">Santé</a></li>
+            <li><a href="actions.html#social">Social</a></li>
+            <li><a href="actions.html#social">Économie</a></li>
+            <li><a href="donate.html">Partenariats</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul class="contact-info">
+            <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
+            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
+            <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
+            <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Menu mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    }
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (!header) return;
+      if (window.scrollY > 100) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+    
+    // Filtrage des projets
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.col-lg-4');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Retirer la classe active de tous les boutons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Ajouter la classe active au bouton cliqué
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        projectCards.forEach(card => {
+          if (filter === 'all') {
+            card.style.display = 'block';
+          } else {
+            const status = card.getAttribute('data-status');
+            if (status === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+    
+    // Animation des barres de progression au scroll
+    const progressBars = document.querySelectorAll('.progress-bar');
+    
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const progressBar = entry.target;
+          const width = progressBar.style.width;
+          progressBar.style.width = '0%';
+          
+          setTimeout(() => {
+            progressBar.style.transition = 'width 1.5s ease-in-out';
+            progressBar.style.width = width;
+          }, 300);
+          
+          progressObserver.unobserve(progressBar);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    progressBars.forEach(bar => {
+      progressObserver.observe(bar);
+    });
+  </script>
+</body>
+</html>
