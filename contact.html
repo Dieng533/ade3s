@@ -1,88 +1,997 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact – ADE3S</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="assets/css/styles.css" rel="stylesheet">
+  <meta name="description" content="Contactez l'ADE3S pour toute question, collaboration ou soutien à nos actions de développement durable à Saint-Louis et Gandon.">
+  
+  <!-- Polices Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <link rel="shortcut icon" href="./assets/logo_adess.png" type="image/x-icon">
+  
+  <!-- CSS personnalisé -->
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-dark: #1F6B47;
+      --primary-light: #E8F5E9;
+      --secondary: #FF7E36;
+      --dark: #1A2E35;
+      --light: #F8F9FA;
+      --gray: #6C757D;
+      --white: #FFFFFF;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header et Navigation */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .logo img {
+      height: 50px;
+      width: auto;
+      margin-right: 10px;
+      transition: var(--transition);
+    }
+    
+    /* Logo adaptatif */
+    .navbar-scrolled .logo img {
+      height: 40px;
+    }
+    
+    .navbar-scrolled .logo {
+      font-size: 1.3rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .contact-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 160px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      opacity: 0.1;
+    }
+    
+    .contact-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+    
+    .contact-hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    /* Section Styles */
+    .section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .section-title p {
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      color: var(--gray);
+    }
+    
+    /* Contact Content */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    
+    /* Contact Form */
+    .contact-form {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+    }
+    
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(46, 139, 87, 0.3);
+    }
+    
+    /* Contact Info */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .info-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .info-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .info-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    
+    .info-title {
+      font-size: 1.3rem;
+      color: var(--dark);
+    }
+    
+    .info-content p {
+      margin-bottom: 10px;
+      color: var(--gray);
+    }
+    
+    .info-content a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .info-content a:hover {
+      color: var(--primary-dark);
+    }
+    
+    /* Map */
+    .map-container {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 300px;
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    /* Team Section */
+    .team-section {
+      background-color: var(--light);
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .team-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .team-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 20px;
+      border: 3px solid var(--primary-light);
+    }
+    
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .team-name {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: var(--dark);
+    }
+    
+    .team-position {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    
+    .team-contact {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      margin-top: 80px;
+    }
+    
+    .faq-item {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      margin-bottom: 15px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      padding: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+    
+    .faq-question:hover {
+      background-color: var(--primary-light);
+    }
+    
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 0 20px 20px;
+      max-height: 500px;
+    }
+    
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 80px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+      padding-left: 5px;
+    }
+    
+    .contact-info-list {
+      list-style: none;
+    }
+    
+    .contact-info-list li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-info-list i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .contact-hero {
+        padding: 140px 0 60px;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .contact-form {
+        padding: 30px 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .info-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .info-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+  <!-- Header -->
+  <header id="header">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-leaf text-success"></i> ADE3S</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
-          <li class="nav-item"><a class="nav-link" href="actions.html">Nos Actions</a></li>
-          <li class="nav-item"><a class="nav-link" href="projects.html">Projets</a></li>
-          <li class="nav-item"><a class="nav-link" href="blog.html">Actualités</a></li>
-          <li class="nav-item"><a class="nav-link" href="donate.html">Don / Partenariat</a></li>
-          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="bi bi-list"></i>
+        </button>
+        
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="actions.html">Nos Actions</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="blog.html">Actualités</a></li>
+          <li><a href="donate.html">Don / Partenariat</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="container">
+      <div class="contact-hero-content">
+        <h1>Contactez-nous</h1>
+        <p>Nous sommes à votre écoute pour répondre à vos questions, discuter de collaborations ou recevoir vos suggestions</p>
       </div>
     </div>
-  </nav>
+  </section>
 
-  <main class="container" style="padding-top:88px; padding-bottom:48px;">
-    <h1 class="mb-4">Contact</h1>
-    <div class="row g-4">
-      <div class="col-lg-6">
-        <form class="card shadow-sm" method="post" action="server/contact.php">
-          <div class="card-body">
-            <div class="mb-3">
-              <label class="form-label">Nom complet</label>
+  <!-- Contact Section -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-container">
+        <!-- Contact Form -->
+        <div class="contact-form">
+          <h2>Envoyez-nous un message</h2>
+          <p class="text-muted" style="margin-bottom: 30px;">Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+          
+          <form method="post" action="server/contact.php">
+            <div class="form-group">
+              <label class="form-label">Nom complet *</label>
               <input type="text" class="form-control" name="name" required>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Email</label>
+            
+            <div class="form-group">
+              <label class="form-label">Email *</label>
               <input type="email" class="form-control" name="email" required>
             </div>
-            <div class="mb-3">
+            
+            <div class="form-group">
               <label class="form-label">Téléphone</label>
               <input type="tel" class="form-control" name="phone">
             </div>
-            <div class="mb-3">
-              <label class="form-label">Message</label>
-              <textarea class="form-control" rows="4" name="message" required></textarea>
+            
+            <div class="form-group">
+              <label class="form-label">Sujet *</label>
+              <select class="form-control" name="subject" required>
+                <option value="">Sélectionnez un sujet</option>
+                <option value="general">Question générale</option>
+                <option value="partnership">Partenariat</option>
+                <option value="donation">Don</option>
+                <option value="volunteer">Bénévolat</option>
+                <option value="project">Projet</option>
+                <option value="other">Autre</option>
+              </select>
             </div>
-            <button class="btn btn-success" type="submit">Envoyer</button>
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-6">
-        <div class="ratio ratio-4x3">
-          <iframe src="https://www.google.com/maps?q=Saint-Louis%20S%C3%A9n%C3%A9gal&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+            <div class="form-group">
+              <label class="form-label">Message *</label>
+              <textarea class="form-control" rows="5" name="message" placeholder="Décrivez votre demande en détail..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Envoyer le message</button>
+          </form>
         </div>
-        <div class="mt-3">
-          <p class="mb-1"><i class="fa-solid fa-location-dot text-success"></i> Siège: Saint-Louis, Sénégal</p>
-          <p class="mb-1"><i class="fa-brands fa-whatsapp text-success"></i> WhatsApp: +221 XX XXX XX XX</p>
-          <p class="mb-0"><i class="fa-brands fa-facebook text-success"></i> Facebook: @ADE3S</p>
+        
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <!-- Address Card -->
+          <div class="info-card">
+            <div class="info-header">
+              <div class="info-icon">
+                <i class="bi bi-geo-alt"></i>
+              </div>
+              <h3 class="info-title">Notre siège</h3>
+            </div>
+            <div class="info-content">
+              <p>Saint-Louis, Sénégal</p>
+              <p>Zone d'intervention : Saint-Louis, Gandon et villages environnants</p>
+            </div>
+          </div>
+          
+          <!-- Contact Card -->
+          <div class="info-card">
+            <div class="info-header">
+              <div class="info-icon">
+                <i class="bi bi-telephone"></i>
+              </div>
+              <h3 class="info-title">Coordonnées</h3>
+            </div>
+            <div class="info-content">
+              <p><i class="bi bi-phone"></i> <a href="tel:+221331234567">+221 533 57 20</a></p>
+              <p><i class="bi bi-whatsapp"></i> <a href="https://wa.me/221771234567">+221 77 161 49 61</a></p>
+              <p><i class="bi bi-envelope"></i> <a href="mailto:contact@ade3s.org">contact@ade3s.org</a></p>
+            </div>
+          </div>
+          
+          <!-- Hours Card -->
+          <div class="info-card">
+            <div class="info-header">
+              <div class="info-icon">
+                <i class="bi bi-clock"></i>
+              </div>
+              <h3 class="info-title">Horaires d'ouverture</h3>
+            </div>
+            <div class="info-content">
+              <p><strong>Lundi - Vendredi:</strong> 9h00 - 17h00</p>
+              <p><strong>Samedi:</strong> 9h00 - 13h00</p>
+              <p><strong>Dimanche:</strong> Fermé</p>
+            </div>
+          </div>
+          
+          <!-- Map -->
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.170239200635!2d-16.48938862468637!3d16.02459528561877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec1a3d92d7c0c91%3A0x9c4696b2c9b4d1!2sSaint-Louis%2C%20Senegal!5e0!3m2!1sen!2sfr!4v1698765432105!5m2!1sen!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <footer class="bg-dark text-white py-4">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-      <div>
-        <strong>ADE3S</strong> — Saint-Louis, Sénégal
+  <!-- Team Section -->
+  <section class="section team-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Notre équipe</h2>
+        <p>Rencontrez les membres clés de notre équipe que vous pouvez contacter directement</p>
       </div>
-      <div class="d-flex align-items-center gap-3">
-        <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-facebook"></i> Facebook</a>
-        <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/tof-president.jpeg" alt="Dr Ousmane Fall">
+          </div>
+          <h3 class="team-name">Dr Ousmane Fall</h3>
+          <p class="team-position">Président Fondateur</p>
+          <p class="team-contact">contact@ade3s.org</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/placeholder-team.jpg" alt="Coordinateur Projets">
+          </div>
+          <h3 class="team-name">Maguette Dieng</h3>
+          <p class="team-position">Coordinatrice des Projets</p>
+          <p class="team-contact">projets@ade3s.org</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/placeholder-team.jpg" alt="Responsable Partenariats">
+          </div>
+          <h3 class="team-name">Cheikh Diouck</h3>
+          <p class="team-position">Responsable Partenariats</p>
+          <p class="team-contact">partenariats@ade3s.org</p>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-image">
+            <img src="./assets/placeholder-team.jpg" alt="Chargée de Communication">
+          </div>
+          <h3 class="team-name">Salymata Ndiaye</h3>
+          <p class="team-position">Chargée de Communication</p>
+          <p class="team-contact">communication@ade3s.org</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Questions fréquentes</h2>
+        <p>Retrouvez les réponses aux questions les plus courantes sur nos actions et comment nous contacter</p>
+      </div>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Comment puis-je devenir bénévole pour l'ADE3S ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Nous accueillons toujours avec plaisir de nouveaux bénévoles. Vous pouvez nous contacter via le formulaire en sélectionnant "Bénévolat" comme sujet, ou nous envoyer un email à benevolat@ade3s.org avec votre domaine d'intérêt et disponibilités.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Quels sont les domaines dans lesquels l'ADE3S intervient ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>L'ADE3S intervient dans quatre domaines principaux : Environnement (reboisement, sensibilisation), Santé (consultations gratuites, dons de médicaments), Social (soutien aux familles, éducation) et Économie (soutien à l'agriculture, création d'emplois).</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Comment puis-je proposer un projet de collaboration ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Vous pouvez nous soumettre votre projet via le formulaire de contact en sélectionnant "Projet" comme sujet, ou directement contacter notre responsable des partenariats à partenariats@ade3s.org. Nous étudions chaque proposition avec attention.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Quelle est la zone d'intervention de l'ADE3S ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Notre association intervient principalement dans la région de Saint-Louis, notamment à Gandon et dans les villages environnants. Nous travaillons en étroite collaboration avec les communautés locales pour identifier leurs besoins spécifiques.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>ADE3S</h3>
+          <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <div class="social-links">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Liens rapides</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="actions.html">Nos Actions</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="blog.html">Actualités</a></li>
+            <li><a href="donate.html">Don / Partenariat</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Nos domaines</h3>
+          <ul class="footer-links">
+            <li><a href="actions.html#env">Environnement</a></li>
+            <li><a href="actions.html#sante">Santé</a></li>
+            <li><a href="actions.html#social">Social</a></li>
+            <li><a href="actions.html#social">Économie</a></li>
+            <li><a href="donate.html">Partenariats</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul class="contact-info-list">
+            <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
+            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
+            <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
+            <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Menu mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+    
+    // FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+    
+    // Form validation
+    const contactForm = document.querySelector('form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        const requiredFields = this.querySelectorAll('[required]');
+        let valid = true;
+        
+        requiredFields.forEach(field => {
+          if (!field.value.trim()) {
+            valid = false;
+            field.style.borderColor = 'red';
+          } else {
+            field.style.borderColor = '#ddd';
+          }
+        });
+        
+        if (!valid) {
+          e.preventDefault();
+          alert('Veuillez remplir tous les champs obligatoires.');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
-
-

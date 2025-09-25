@@ -1,82 +1,1061 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Faire un don / Partenariat – ADE3S</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="assets/css/styles.css" rel="stylesheet">
+  <meta name="description" content="Soutenez l'ADE3S dans ses actions pour le développement durable de Saint-Louis et Gandon. Dons financiers, matériels ou partenariats.">
+  
+  <!-- Polices Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <link rel="shortcut icon" href="./assets/logo_adess.png" type="image/x-icon">
-
+  
+  <!-- CSS personnalisé -->
+  <style>
+    :root {
+      --primary: #2E8B57;
+      --primary-dark: #1F6B47;
+      --primary-light: #E8F5E9;
+      --secondary: #FF7E36;
+      --dark: #1A2E35;
+      --light: #F8F9FA;
+      --gray: #6C757D;
+      --white: #FFFFFF;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header et Navigation */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .logo img {
+      height: 50px;
+      width: auto;
+      margin-right: 10px;
+      transition: var(--transition);
+    }
+    
+    /* Logo adaptatif */
+    .navbar-scrolled .logo img {
+      height: 40px;
+    }
+    
+    .navbar-scrolled .logo {
+      font-size: 1.3rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .donate-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 160px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .donate-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      opacity: 0.1;
+    }
+    
+    .donate-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .donate-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+    
+    .donate-hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    /* Section Styles */
+    .section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .section-title p {
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      color: var(--gray);
+    }
+    
+    /* Impact Section */
+    .impact-section {
+      background-color: var(--light);
+    }
+    
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .impact-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .impact-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .impact-icon {
+      width: 70px;
+      height: 70px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    
+    .impact-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .impact-text {
+      color: var(--gray);
+    }
+    
+    /* Donation Options */
+    .donation-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .donation-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+      padding: 40px 30px;
+    }
+    
+    .donation-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .donation-icon {
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary);
+      font-size: 2rem;
+    }
+    
+    .donation-card h3 {
+      margin-bottom: 15px;
+    }
+    
+    .donation-card p {
+      color: var(--gray);
+      margin-bottom: 25px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(46, 139, 87, 0.3);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    /* Payment Methods */
+    .payment-methods {
+      background-color: var(--light);
+      border-radius: var(--radius);
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    
+    .payment-methods h3 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .payment-method {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    
+    .payment-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .payment-details {
+      margin-top: 15px;
+    }
+    
+    .payment-details p {
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+    
+    .copy-btn {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      transition: var(--transition);
+    }
+    
+    .copy-btn:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    /* Partners Section */
+    .partners-section {
+      background-color: var(--light);
+    }
+    
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 30px;
+      align-items: center;
+    }
+    
+    .partner-logo {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .partner-logo:hover {
+      transform: translateY(-5px);
+    }
+    
+    .partner-logo img {
+      max-width: 100%;
+      max-height: 80px;
+      filter: grayscale(100%);
+      transition: var(--transition);
+    }
+    
+    .partner-logo:hover img {
+      filter: grayscale(0%);
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      background-color: var(--primary-light);
+      border-radius: var(--radius);
+      padding: 60px 40px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    
+    .testimonial-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      margin-bottom: 30px;
+      color: var(--dark);
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      margin-top: 80px;
+    }
+    
+    .faq-item {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      margin-bottom: 15px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      padding: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+    
+    .faq-question:hover {
+      background-color: var(--primary-light);
+    }
+    
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 0 20px 20px;
+      max-height: 500px;
+    }
+    
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 80px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+      padding-left: 5px;
+    }
+    
+    .contact-info {
+      list-style: none;
+    }
+    
+    .contact-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-info i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .donate-hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .donate-hero {
+        padding: 140px 0 60px;
+      }
+      
+      .donate-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .payment-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .donation-options {
+        grid-template-columns: 1fr;
+      }
+      
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+  <!-- Header -->
+  <header id="header">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-leaf text-success"></i> ADE3S</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
-          <li class="nav-item"><a class="nav-link" href="actions.html">Nos Actions</a></li>
-          <li class="nav-item"><a class="nav-link" href="projects.html">Projets</a></li>
-          <li class="nav-item"><a class="nav-link" href="blog.html">Actualités</a></li>
-          <li class="nav-item"><a class="nav-link active" href="donate.html">Don / Partenariat</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="bi bi-list"></i>
+        </button>
+        
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="actions.html">Nos Actions</a></li>
+          <li><a href="projects.html">Projets</a></li>
+          <li><a href="blog.html">Actualités</a></li>
+          <li><a href="donate.html" class="active">Don / Partenariat</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="donate-hero">
+    <div class="container">
+      <div class="donate-hero-content">
+        <h1>Soutenir l'ADE3S</h1>
+        <p>Votre soutien nous permet de continuer nos actions pour le développement durable de Saint-Louis, Gandon et ses villages</p>
+        <a href="#donation-options" class="btn btn-primary">Faire un don</a>
       </div>
     </div>
-  </nav>
+  </section>
 
-  <main class="container" style="padding-top:88px; padding-bottom:48px;">
-    <h1 class="mb-4">Soutenir l'ADE3S</h1>
-    <div class="row g-4">
-      <div class="col-lg-6">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Dons financiers</h5>
-            <ul>
-              <li>Virement bancaire: <strong>IBAN / Compte</strong> (à compléter)</li>
-              <li>Orange Money / Wave: <strong>+221 XX XXX XX XX</strong></li>
-            </ul>
-            <p>Merci de préciser l'objet: <em>Don ADE3S</em>.</p>
+  <!-- Impact Section -->
+  <section class="section impact-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Votre impact</h2>
+        <p>Découvrez comment votre soutien contribue concrètement à nos actions sur le terrain</p>
+      </div>
+      
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="bi bi-tree"></i>
+          </div>
+          <div class="impact-number">3,000+</div>
+          <div class="impact-text">Arbres plantés</div>
+        </div>
+        
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="bi bi-heart-pulse"></i>
+          </div>
+          <div class="impact-number">500+</div>
+          <div class="impact-text">Consultations médicales</div>
+        </div>
+        
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <div class="impact-number">1,200+</div>
+          <div class="impact-text">Familles soutenues</div>
+        </div>
+        
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="bi bi-book"></i>
+          </div>
+          <div class="impact-number">50+</div>
+          <div class="impact-text">Agriculteurs formés</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Options -->
+  <section class="section" id="donation-options">
+    <div class="container">
+      <div class="section-title">
+        <h2>Comment nous soutenir</h2>
+        <p>Plusieurs options s'offrent à vous pour contribuer à nos actions de développement durable</p>
+      </div>
+      
+      <div class="donation-options">
+        <!-- Option 1 -->
+        <div class="donation-card">
+          <div class="donation-icon">
+            <i class="bi bi-credit-card"></i>
+          </div>
+          <h3>Dons financiers</h3>
+          <p>Votre contribution financière nous permet de financer nos projets environnementaux, sanitaires et sociaux.</p>
+          <a href="#payment-methods" class="btn btn-primary">Faire un don</a>
+        </div>
+        
+        <!-- Option 2 -->
+        <div class="donation-card">
+          <div class="donation-icon">
+            <i class="bi bi-briefcase"></i>
+          </div>
+          <h3>Partenariats</h3>
+          <p>Entreprises, ONG, institutions : collaborons pour des actions durables et impactantes.</p>
+          <a href="contact.html" class="btn btn-secondary">Devenir partenaire</a>
+        </div>
+        
+        <!-- Option 3 -->
+        <div class="donation-card">
+          <div class="donation-icon">
+            <i class="bi bi-box-seam"></i>
+          </div>
+          <h3>Dons en nature</h3>
+          <p>Matériel médical, fournitures scolaires, plants d'arbres : vos dons matériels sont précieux.</p>
+          <a href="contact.html" class="btn btn-secondary">Nous contacter</a>
+        </div>
+      </div>
+      
+      <!-- Payment Methods -->
+      <div class="payment-methods" id="payment-methods">
+        <h3>Modes de paiement</h3>
+        <div class="payment-grid">
+          <!-- Virement bancaire -->
+          <div class="payment-method">
+            <div class="payment-icon">
+              <i class="bi bi-bank"></i>
+            </div>
+            <h4>Virement bancaire</h4>
+            <div class="payment-details">
+              <p><strong>Banque :</strong> BICIS</p>
+              <p><strong>IBAN :</strong> SN08 1234 5678 9012 3456 7890 123</p>
+              <p><strong>BIC :</strong> BICISNDA</p>
+              <button class="copy-btn" data-text="SN08 1234 5678 9012 3456 7890 123">Copier l'IBAN</button>
+            </div>
+          </div>
+          
+          <!-- Orange Money -->
+          <div class="payment-method">
+            <div class="payment-icon">
+              <i class="bi bi-phone"></i>
+            </div>
+            <h4>Orange Money</h4>
+            <div class="payment-details">
+              <p><strong>Numéro :</strong> +221 77 533 57 20</p>
+              <p><strong>Nom :</strong> ADE3S</p>
+              <button class="copy-btn" data-text="+221775335720">Copier le numéro</button>
+            </div>
+          </div>
+          
+          <!-- Wave -->
+          <div class="payment-method">
+            <div class="payment-icon">
+              <i class="bi bi-cash-coin"></i>
+            </div>
+            <h4>Wave</h4>
+            <div class="payment-details">
+              <p><strong>Numéro :</strong> +221 77 533 57 20</p>
+              <p><strong>Nom :</strong> ADE3S</p>
+              <button class="copy-btn" data-text="+221775335720">Copier le numéro</button>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+          <p><strong>Important :</strong> Merci de préciser "Don ADE3S" dans l'objet de votre virement ou transfert.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <section class="section partners-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos partenaires</h2>
+        <p>Ils nous font confiance et soutiennent nos actions</p>
+      </div>
+      
+      <div class="partners-grid">
+        <div class="partner-logo">
+          <img src="./assets/partenaire1.png" alt="Partenaire 1">
+        </div>
+        <div class="partner-logo">
+          <img src="./assets/partenaire2.png" alt="Partenaire 2">
+        </div>
+        <div class="partner-logo">
+          <img src="./assets/partenaire3.png" alt="Partenaire 3">
+        </div>
+        <div class="partner-logo">
+          <img src="./assets/partenaire4.png" alt="Partenaire 4">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <div class="testimonials">
+        <div class="testimonial-content">
+          <p class="testimonial-text">"Soutenir l'ADE3S, c'est investir dans un avenir durable pour notre région. Chaque don contribue directement à des actions concrètes qui améliorent la vie des communautés."</p>
+          <p class="testimonial-author">— Dr Ousmane Fall, Président de l'ADE3S</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Questions fréquentes</h2>
+        <p>Retrouvez les réponses aux questions les plus courantes sur le soutien à l'ADE3S</p>
+      </div>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Comment puis-je être sûr que mon don sera utilisé efficacement ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>L'ADE3S s'engage sur une transparence totale dans l'utilisation des fonds. Nous publions régulièrement des rapports détaillés sur nos actions et l'utilisation des dons. Vous pouvez également nous contacter à tout moment pour obtenir des informations spécifiques.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Puis-je déduire mon don de mes impôts ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Oui, l'ADE3S étant une association à but non lucratif reconnue, vos dons sont éligibles à une déduction fiscale selon la législation en vigueur au Sénégal. Nous vous fournissons un reçu officiel pour chaque don.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Comment devenir partenaire de l'ADE3S ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Nous sommes ouverts à différents types de partenariats : financiers, techniques, matériels. Contactez-nous via notre formulaire de contact ou par téléphone pour discuter des modalités de collaboration possibles.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Puis-je faire un don régulier ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Absolument ! Les dons réguliers nous aident à planifier nos actions sur le long terme. Contactez-nous pour mettre en place un virement automatique mensuel ou trimestriel.</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Partenariats</h5>
-            <p>Entreprises, ONG, institutions: contactez-nous pour co-construire des actions durables.</p>
-            <a href="contact.html" class="btn btn-success">Nous contacter</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>ADE3S</h3>
+          <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <div class="social-links">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
+        
+        <div class="footer-column">
+          <h3>Liens rapides</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="actions.html">Nos Actions</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="blog.html">Actualités</a></li>
+            <li><a href="donate.html">Don / Partenariat</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Nos domaines</h3>
+          <ul class="footer-links">
+            <li><a href="actions.html#env">Environnement</a></li>
+            <li><a href="actions.html#sante">Santé</a></li>
+            <li><a href="actions.html#social">Social</a></li>
+            <li><a href="actions.html#social">Économie</a></li>
+            <li><a href="donate.html">Partenariats</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul class="contact-info">
+            <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
+            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
+            <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
+            <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="mt-4">
-      <h5>Partenaires</h5>
-      <div class="d-flex flex-wrap gap-3 align-items-center">
-        <img src="assets/img/placeholder.jpg" alt="Partenaire" height="48">
-        <img src="assets/img/placeholder.jpg" alt="Partenaire" height="48">
-      </div>
-    </div>
-  </main>
-
-  <footer class="bg-dark text-white py-4">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-      <div>
-        <strong>ADE3S</strong> — Saint-Louis, Sénégal
-      </div>
-      <div class="d-flex align-items-center gap-3">
-        <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-facebook"></i> Facebook</a>
-        <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Menu mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+    
+    // Copy buttons
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const textToCopy = button.getAttribute('data-text');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          const originalText = button.textContent;
+          button.textContent = 'Copié !';
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+        });
+      });
+    });
+    
+    // FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
 </body>
 </html>
