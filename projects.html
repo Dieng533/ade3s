@@ -11,9 +11,6 @@
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,13 +23,15 @@
       --primary-dark: #1F6B47;
       --primary-light: #E8F5E9;
       --secondary: #FF7E36;
+      --accent: #3A86FF;
       --dark: #1A2E35;
       --light: #F8F9FA;
       --gray: #6C757D;
       --white: #FFFFFF;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
       --radius: 12px;
-      --transition: all 0.3s ease;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
@@ -47,6 +46,8 @@
       color: var(--dark);
       background-color: var(--white);
       overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-top: 80px; /* Compense la navbar fixe */
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -55,100 +56,369 @@
       line-height: 1.3;
     }
     
-    /* Header et Navigation */
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* ===== BARRE DE NAVIGATION AMÉLIORÉE ===== */
     header {
-      background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 1000;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
       transition: var(--transition);
     }
     
     .header-scrolled {
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      border-bottom-color: rgba(46, 139, 87, 0.1);
     }
     
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 0;
+      padding: 0.8rem 0;
+      position: relative;
     }
     
-    .logo {
+    /* Logo Section */
+    .logo-container {
       display: flex;
       align-items: center;
+      gap: 15px;
       text-decoration: none;
-      color: var(--dark);
-      font-weight: 700;
-      font-size: 1.5rem;
+      transition: var(--transition);
     }
     
-    .logo img {
+    .logo-container:hover {
+      transform: translateY(-2px);
+    }
+    
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.2);
+      transition: var(--transition);
+    }
+    
+    .logo-container:hover .logo-img {
+      transform: rotate(-5deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.3);
+    }
+    
+    .logo-img img {
+      width: 40px;
       height: 40px;
-      width: auto;
-      margin-right: 10px;
-      border-radius: 4px;
+      filter: brightness(0) invert(1);
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    
+    .logo-sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    /* Navigation principale */
+    .nav-main {
+      display: flex;
+      align-items: center;
+      gap: 40px;
     }
     
     .nav-links {
       display: flex;
       list-style: none;
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
     
-    .nav-links li {
-      margin-left: 2rem;
+    .nav-item {
+      position: relative;
     }
     
-    .nav-links a {
+    .nav-link {
       text-decoration: none;
-      color: var(--dark);
+      color: var(--gray);
       font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .nav-link i {
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(46, 139, 87, 0.05);
+    }
+    
+    .nav-link:hover i {
+      transform: scale(1.1);
+    }
+    
+    .nav-link.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+    }
+    
+    .nav-link.active i {
+      color: var(--white);
+    }
+    
+    /* Bouton action spécial */
+    .nav-action {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .btn-donate {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(255, 126, 54, 0.3);
+    }
+    
+    .btn-donate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 126, 54, 0.4);
+      background: linear-gradient(135deg, #FF6B35, #FF5722);
+    }
+    
+    .btn-donate i {
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    
+    .btn-donate:hover i {
+      transform: scale(1.1);
+    }
+    
+    /* Menu mobile (caché par défaut) */
+    .mobile-menu-btn {
+      display: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
+    }
+    
+    .mobile-menu-btn:hover {
+      transform: rotate(90deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+    }
+    
+    /* Menu mobile overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(26, 46, 53, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .mobile-nav-links {
+      list-style: none;
+      text-align: center;
+    }
+    
+    .mobile-nav-links li {
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active .mobile-nav-links li {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(0.1s * var(--i));
+    }
+    
+    .mobile-nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 40px;
+      border-radius: 50px;
       transition: var(--transition);
       position: relative;
-      padding: 5px 0;
+      overflow: hidden;
     }
     
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-    
-    .nav-links a::after {
+    .mobile-nav-links a::before {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       width: 0;
-      height: 2px;
-      background-color: var(--primary);
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
       transition: var(--transition);
+      z-index: -1;
     }
     
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
+    .mobile-nav-links a:hover::before {
       width: 100%;
     }
     
-    .nav-links a.active {
-      color: var(--primary);
-    }
-    
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
+    .mobile-nav-links a i {
       font-size: 1.5rem;
-      color: var(--dark);
-      cursor: pointer;
     }
     
-    /* Hero Section */
+    .mobile-nav-links a.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+    }
+    
+    .close-mobile-menu {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .close-mobile-menu:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .mobile-donate-btn {
+      margin-top: 40px;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      text-decoration: none;
+    }
+    
+    .mobile-overlay.active .mobile-donate-btn {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+    
+    .mobile-donate-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 126, 54, 0.4);
+    }
+    
+    /* Indicateur de scroll */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    
+    /* ===== HERO SECTION ===== */
     .page-hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: var(--white);
-      padding: 160px 0 100px;
+      padding: 140px 0 80px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -166,53 +436,62 @@
     }
     
     .page-hero-content {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
     
     .page-hero h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       margin-bottom: 1.5rem;
       color: var(--white);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
     
     .page-hero p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 2rem;
       opacity: 0.9;
+    }
+    
+    /* ===== PROJETS STYLES ===== */
+    .projects-section {
+      padding: 100px 0;
     }
     
     /* Filtres de projets */
     .projects-filter {
       display: flex;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 60px;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 15px;
     }
     
     .filter-btn {
       background: none;
       border: none;
-      padding: 8px 20px;
+      padding: 12px 28px;
       border-radius: 50px;
       font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
       background-color: var(--light);
       color: var(--gray);
+      font-size: 0.95rem;
     }
     
     .filter-btn.active {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
     }
     
     .filter-btn:not(.active):hover {
-      background-color: rgba(46, 139, 87, 0.1);
+      background: rgba(46, 139, 87, 0.1);
       color: var(--primary);
+      transform: translateY(-3px);
     }
     
     /* Cartes de projets améliorées */
@@ -224,16 +503,18 @@
       overflow: hidden;
       height: 100%;
       margin-bottom: 30px;
+      background: var(--white);
     }
     
     .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
     }
     
     .project-image {
-      height: 200px;
+      height: 220px;
       overflow: hidden;
+      position: relative;
     }
     
     .project-image img {
@@ -244,60 +525,76 @@
     }
     
     .project-card:hover .project-image img {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
     
     .project-content {
-      padding: 25px;
+      padding: 30px;
     }
     
     .project-status {
       display: inline-block;
-      padding: 5px 12px;
+      padding: 8px 16px;
       border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
     
     .status-completed {
-      background-color: #E8F5E9;
+      background: #E8F5E9;
       color: var(--primary);
     }
     
     .status-ongoing {
-      background-color: #FFF3E0;
+      background: #FFF3E0;
       color: #FF9800;
     }
     
     .status-upcoming {
-      background-color: #E3F2FD;
+      background: #E3F2FD;
       color: #2196F3;
     }
     
     .project-title {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--dark);
     }
     
     .project-description {
       color: var(--gray);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      line-height: 1.7;
     }
     
     .project-progress {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     
     .progress {
-      height: 8px;
-      border-radius: 4px;
+      height: 10px;
+      border-radius: 5px;
       background-color: #f0f0f0;
       overflow: hidden;
+      margin-bottom: 8px;
     }
     
     .progress-bar {
-      border-radius: 4px;
+      border-radius: 5px;
+      transition: width 1.5s ease-in-out;
+    }
+    
+    .bg-success {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+    }
+    
+    .bg-warning {
+      background: linear-gradient(135deg, #FF9800, #FF5722) !important;
+    }
+    
+    .bg-info {
+      background: linear-gradient(135deg, #2196F3, #3A86FF) !important;
     }
     
     .progress-info {
@@ -305,21 +602,23 @@
       justify-content: space-between;
       font-size: 0.9rem;
       color: var(--gray);
-      margin-top: 5px;
     }
     
     .project-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
-      padding-top: 15px;
+      margin-top: 25px;
+      padding-top: 20px;
       border-top: 1px solid #f0f0f0;
     }
     
     .project-date {
       font-size: 0.9rem;
       color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     
     .project-link {
@@ -328,80 +627,99 @@
       font-weight: 600;
       display: flex;
       align-items: center;
-    }
-    
-    .project-link i {
-      margin-left: 5px;
+      gap: 8px;
       transition: var(--transition);
     }
     
-    .project-link:hover i {
-      transform: translateX(5px);
+    .project-link:hover {
+      color: var(--primary-dark);
+      gap: 12px;
     }
     
-    /* Section CTA */
+    /* ===== CTA SECTION ===== */
     .cta-section {
-      background: linear-gradient(135deg, var(--dark) 0%, #2a3e47 100%);
+      background: linear-gradient(135deg, var(--dark) 0%, #0d1a22 100%);
       color: var(--white);
-      padding: 80px 0;
+      padding: 100px 0;
       text-align: center;
       border-radius: var(--radius);
-      margin: 80px 0;
+      margin: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      opacity: 0.1;
+    }
+    
+    .cta-content {
+      position: relative;
+      z-index: 1;
     }
     
     .cta-section h2 {
       color: var(--white);
       margin-bottom: 20px;
+      font-size: 2.5rem;
     }
     
     .cta-section p {
       max-width: 600px;
-      margin: 0 auto 30px;
+      margin: 0 auto 40px;
       opacity: 0.9;
+      font-size: 1.1rem;
     }
     
-    .btn-custom {
-      padding: 12px 30px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 35px;
       border-radius: 50px;
+      text-decoration: none;
       font-weight: 600;
       transition: var(--transition);
-      text-decoration: none;
-      display: inline-block;
       border: none;
       cursor: pointer;
+      font-size: 1rem;
+      gap: 10px;
     }
     
-    .btn-primary-custom {
-      background-color: var(--primary);
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
-      border: 2px solid var(--primary);
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.3);
     }
     
-    .btn-primary-custom:hover {
-      background-color: var(--primary-dark);
-      border-color: var(--primary-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(46, 139, 87, 0.4);
       color: var(--white);
     }
     
-    .btn-outline-custom {
+    .btn-outline {
       background-color: transparent;
       color: var(--white);
       border: 2px solid var(--white);
-      margin-left: 15px;
     }
     
-    .btn-outline-custom:hover {
-      background-color: var(--white);
-      color: var(--dark);
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
     }
     
-    /* Footer amélioré */
+    /* ===== FOOTER ===== */
     footer {
-      background-color: var(--dark);
+      background: linear-gradient(135deg, var(--dark) 0%, #0d1a22 100%);
       color: var(--white);
-      padding: 60px 0 30px;
+      padding: 80px 0 30px;
     }
     
     .footer-content {
@@ -412,7 +730,7 @@
     }
     
     .footer-column h3 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 25px;
       position: relative;
       padding-bottom: 10px;
@@ -425,11 +743,12 @@
       left: 0;
       width: 40px;
       height: 3px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
     }
     
     .footer-links {
       list-style: none;
+      padding: 0;
     }
     
     .footer-links li {
@@ -440,6 +759,9 @@
       color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
       transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .footer-links a:hover {
@@ -449,6 +771,7 @@
     
     .contact-info {
       list-style: none;
+      padding: 0;
     }
     
     .contact-info li {
@@ -460,10 +783,13 @@
     .contact-info i {
       margin-right: 10px;
       color: var(--primary);
+      font-size: 1.1rem;
+      margin-top: 3px;
     }
     
     .social-links {
       display: flex;
+      gap: 10px;
       margin-top: 20px;
     }
     
@@ -471,14 +797,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      margin-right: 10px;
       color: var(--white);
       text-decoration: none;
       transition: var(--transition);
+      font-size: 1.2rem;
     }
     
     .social-links a:hover {
@@ -494,83 +820,312 @@
       font-size: 0.9rem;
     }
     
-    /* Responsive Design */
-    @media (max-width: 992px) {
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .nav-main {
+        gap: 25px;
+      }
+      
+      .nav-links {
+        gap: 2px;
+      }
+      
+      .nav-link {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-donate {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+      
       .page-hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .btn-donate {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .logo-main {
+        font-size: 1.6rem;
+      }
+      
+      .logo-img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .logo-img img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .page-hero h1 {
+        font-size: 2.4rem;
+      }
+      
+      .page-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .projects-filter {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      
+      .project-image {
+        height: 200px;
       }
     }
     
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-      
-      .nav-links.active {
-        display: flex;
-      }
-      
-      .nav-links li {
-        margin: 10px 0;
-      }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
       .page-hero {
-        padding: 140px 0 80px;
+        padding: 120px 0 60px;
       }
       
       .page-hero h1 {
         font-size: 2.2rem;
       }
       
-      .btn-outline-custom {
-        margin-left: 0;
-        margin-top: 15px;
-        display: block;
+      .projects-filter {
+        margin-bottom: 40px;
+      }
+      
+      .filter-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .project-content {
+        padding: 25px 20px;
+      }
+      
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+      
+      .cta-section p {
+        font-size: 1rem;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .logo-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .logo-main {
+        font-size: 1.4rem;
+      }
+      
+      .logo-sub {
+        font-size: 0.7rem;
+      }
+      
+      .logo-img {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .logo-img img {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .mobile-menu-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+      
+      .mobile-nav-links a {
+        font-size: 1.5rem;
+        padding: 12px 30px;
+      }
+      
+      .page-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .page-hero p {
+        font-size: 1rem;
       }
       
       .projects-filter {
         justify-content: flex-start;
       }
-    }
-    
-    @media (max-width: 576px) {
+      
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+      
+      .project-meta {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .project-link {
+        align-self: flex-start;
+      }
+      
+      .cta-section .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      
       .footer-content {
         grid-template-columns: 1fr;
+        gap: 30px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Barre de Navigation Améliorée -->
   <header id="header">
     <div class="container">
       <nav class="navbar">
-        <a href="index.html" class="logo">
-          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        <!-- Logo -->
+        <a href="index.html" class="logo-container">
+          <div class="logo-img">
+            <img src="./assets/logo_adess.png" alt="ADE3S Logo">
+          </div>
         </a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="bi bi-list"></i></button>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="about.html">À propos</a></li>
-          <li><a href="actions.html">Nos Actions</a></li>
-          <li><a href="projects.html" class="active">Projets</a></li>
-          <li><a href="blog.html">Actualités</a></li>
-          <li><a href="donate.html">Don / Partenariat</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
+        
+        <!-- Navigation Desktop -->
+        <div class="nav-main">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">
+                <i class="bi bi-house-door"></i>
+                <span>Accueil</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">
+                <i class="bi bi-info-circle"></i>
+                <span>À propos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="actions.html" class="nav-link">
+                <i class="bi bi-activity"></i>
+                <span>Nos Actions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="projects.html" class="nav-link active">
+                <i class="bi bi-folder"></i>
+                <span>Projets</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="blog.html" class="nav-link">
+                <i class="bi bi-newspaper"></i>
+                <span>Actualités</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </li>
+          </ul>
+          
+          <!-- Bouton d'action -->
+          <div class="nav-action">
+            <a href="donate.html" class="btn-donate">
+              <i class="bi bi-heart-fill"></i>
+              <span>Faire un don</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Bouton Menu Mobile -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="bi bi-list"></i>
+        </button>
       </nav>
+      
+      <!-- Indicateur de scroll -->
+      <div class="scroll-indicator" id="scrollIndicator"></div>
+    </div>
+    
+    <!-- Overlay Menu Mobile -->
+    <div class="mobile-overlay" id="mobileOverlay">
+      <button class="close-mobile-menu" id="closeMobileMenu">
+        <i class="bi bi-x"></i>
+      </button>
+      
+      <ul class="mobile-nav-links">
+        <li style="--i: 0;">
+          <a href="index.html">
+            <i class="bi bi-house-door"></i>
+            <span>Accueil</span>
+          </a>
+        </li>
+        <li style="--i: 1;">
+          <a href="about.html">
+            <i class="bi bi-info-circle"></i>
+            <span>À propos</span>
+          </a>
+        </li>
+        <li style="--i: 2;">
+          <a href="actions.html">
+            <i class="bi bi-activity"></i>
+            <span>Nos Actions</span>
+          </a>
+        </li>
+        <li style="--i: 3;">
+          <a href="projects.html" class="active">
+            <i class="bi bi-folder"></i>
+            <span>Projets</span>
+          </a>
+        </li>
+        <li style="--i: 4;">
+          <a href="blog.html">
+            <i class="bi bi-newspaper"></i>
+            <span>Actualités</span>
+          </a>
+        </li>
+        <li style="--i: 5;">
+          <a href="contact.html">
+            <i class="bi bi-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <a href="donate.html" class="mobile-donate-btn">
+        <i class="bi bi-heart-fill"></i>
+        <span>Faire un don</span>
+      </a>
     </div>
   </header>
 
@@ -585,7 +1140,7 @@
   </section>
 
   <!-- Main Content -->
-  <main class="container">
+  <main class="container projects-section">
     <!-- Filtres -->
     <div class="projects-filter">
       <button class="filter-btn active" data-filter="all">Tous les projets</button>
@@ -600,7 +1155,7 @@
       <div class="col-lg-4 col-md-6" data-status="completed">
         <div class="project-card">
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Reboisement">
+            <img src="assets/images/reboisements/3.jpg" alt="Reboisement">
           </div>
           <div class="project-content">
             <span class="project-status status-completed">Réalisé</span>
@@ -619,10 +1174,12 @@
             
             <div class="project-meta">
               <div class="project-date">
-                <i class="far fa-calendar me-1"></i> Terminé en 2023
+                <i class="bi bi-calendar"></i>
+                Terminé en 2023
               </div>
               <a href="#" class="project-link">
-                Voir détails <i class="fas fa-arrow-right"></i>
+                Voir détails
+                <i class="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -633,7 +1190,7 @@
       <div class="col-lg-4 col-md-6" data-status="ongoing">
         <div class="project-card">
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1589923188657-2d27e6af0d6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nouvelle campagne de reboisement">
+            <img src="assets/images/reboisements/1.jpg" alt="Nouvelle campagne de reboisement">
           </div>
           <div class="project-content">
             <span class="project-status status-ongoing">En cours</span>
@@ -652,10 +1209,12 @@
             
             <div class="project-meta">
               <div class="project-date">
-                <i class="far fa-calendar me-1"></i> Débuté en 2024
+                <i class="bi bi-calendar"></i>
+                Débuté en 2024
               </div>
               <a href="#" class="project-link">
-                Voir détails <i class="fas fa-arrow-right"></i>
+                Voir détails
+                <i class="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -666,7 +1225,7 @@
       <div class="col-lg-4 col-md-6" data-status="upcoming">
         <div class="project-card">
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dons de médicaments">
+            <img src="assets/images/sante/4.jpg" alt="Dons de médicaments">
           </div>
           <div class="project-content">
             <span class="project-status status-upcoming">À venir</span>
@@ -685,10 +1244,12 @@
             
             <div class="project-meta">
               <div class="project-date">
-                <i class="far fa-calendar me-1"></i> Prévu pour 2024
+                <i class="bi bi-calendar"></i>
+                Prévu pour 2024
               </div>
               <a href="#" class="project-link">
-                Voir détails <i class="fas fa-arrow-right"></i>
+                Voir détails
+                <i class="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -699,7 +1260,7 @@
       <div class="col-lg-4 col-md-6" data-status="upcoming">
         <div class="project-card">
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Soutien à l'agriculture">
+            <img src="assets/env0.jpg" alt="Soutien à l'agriculture">
           </div>
           <div class="project-content">
             <span class="project-status status-upcoming">À venir</span>
@@ -718,10 +1279,12 @@
             
             <div class="project-meta">
               <div class="project-date">
-                <i class="far fa-calendar me-1"></i> Prévu pour 2024
+                <i class="bi bi-calendar"></i>
+                Prévu pour 2026
               </div>
               <a href="#" class="project-link">
-                Voir détails <i class="fas fa-arrow-right"></i>
+                Voir détails
+                <i class="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -732,7 +1295,7 @@
       <div class="col-lg-4 col-md-6" data-status="ongoing">
         <div class="project-card">
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sensibilisation environnementale">
+            <img src="assets/en1.jpg" alt="Sensibilisation environnementale">
           </div>
           <div class="project-content">
             <span class="project-status status-ongoing">En cours</span>
@@ -751,10 +1314,12 @@
             
             <div class="project-meta">
               <div class="project-date">
-                <i class="far fa-calendar me-1"></i> Débuté en 2023
+                <i class="bi bi-calendar"></i>
+                Débuté en 2023
               </div>
               <a href="#" class="project-link">
-                Voir détails <i class="fas fa-arrow-right"></i>
+                Voir détails
+                <i class="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -765,7 +1330,7 @@
       <div class="col-lg-4 col-md-6" data-status="completed">
         <div class="project-card">
           <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Distribution de kits scolaires">
+            <img src="assets/images/sante/1.jpg" alt="Distribution de kits scolaires">
           </div>
           <div class="project-content">
             <span class="project-status status-completed">Réalisé</span>
@@ -784,10 +1349,12 @@
             
             <div class="project-meta">
               <div class="project-date">
-                <i class="far fa-calendar me-1"></i> Terminé en 2023
+                <i class="bi bi-calendar"></i>
+                Terminé en 2023
               </div>
               <a href="#" class="project-link">
-                Voir détails <i class="fas fa-arrow-right"></i>
+                Voir détails
+                <i class="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -798,11 +1365,19 @@
     <!-- Section CTA -->
     <section class="cta-section">
       <div class="container">
-        <h2>Vous souhaitez soutenir nos projets ?</h2>
-        <p>Votre contribution nous permet de poursuivre et d'étendre nos actions pour le développement durable de notre région.</p>
-        <div class="mt-4">
-          <a href="donate.html" class="btn btn-primary-custom btn-custom">Faire un don</a>
-          <a href="contact.html" class="btn btn-outline-custom btn-custom">Devenir partenaire</a>
+        <div class="cta-content">
+          <h2>Vous souhaitez soutenir nos projets ?</h2>
+          <p>Votre contribution nous permet de poursuivre et d'étendre nos actions pour le développement durable de notre région.</p>
+          <div class="mt-4">
+            <a href="donate.html" class="btn btn-primary">
+              <i class="bi bi-heart-fill"></i>
+              Faire un don
+            </a>
+            <a href="contact.html" class="btn btn-outline">
+              <i class="bi bi-handshake"></i>
+              Devenir partenaire
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -817,7 +1392,7 @@
           <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
           <div class="social-links">
             <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-whatsapp"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
             <a href="#"><i class="bi bi-linkedin"></i></a>
           </div>
@@ -825,30 +1400,28 @@
         <div class="footer-column">
           <h3>Liens rapides</h3>
           <ul class="footer-links">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="actions.html">Nos Actions</a></li>
-            <li><a href="projects.html">Projets</a></li>
-            <li><a href="blog.html">Actualités</a></li>
-            <li><a href="donate.html">Don / Partenariat</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html"><i class="bi bi-chevron-right"></i> Accueil</a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right"></i> À propos</a></li>
+            <li><a href="actions.html"><i class="bi bi-chevron-right"></i> Nos Actions</a></li>
+            <li><a href="projects.html"><i class="bi bi-chevron-right"></i> Projets</a></li>
+            <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Contact</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <h3>Nos domaines</h3>
           <ul class="footer-links">
-            <li><a href="actions.html#env">Environnement</a></li>
-            <li><a href="actions.html#sante">Santé</a></li>
-            <li><a href="actions.html#social">Social</a></li>
-            <li><a href="actions.html#social">Économie</a></li>
-            <li><a href="donate.html">Partenariats</a></li>
+            <li><a href="actions.html#env"><i class="bi bi-chevron-right"></i> Environnement</a></li>
+            <li><a href="actions.html#sante"><i class="bi bi-chevron-right"></i> Santé</a></li>
+            <li><a href="actions.html#social"><i class="bi bi-chevron-right"></i> Social</a></li>
+            <li><a href="actions.html#social"><i class="bi bi-chevron-right"></i> Économie</a></li>
+            <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Partenariats</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <h3>Contact</h3>
           <ul class="contact-info">
             <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
-            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
+            <li><i class="bi bi-telephone"></i> +221 533 57 20</li>
             <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
             <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
           </ul>
@@ -863,31 +1436,70 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
-    // Menu mobile
+    // Initialisation des éléments DOM
+    const header = document.getElementById('header');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-links a');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const projectCards = document.querySelectorAll('.col-lg-4');
+    const filterBtns = document.querySelectorAll('.filter-btn');
     
-    if (mobileMenuBtn && navLinks) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-      });
-    }
-    
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('header');
-      if (!header) return;
-      if (window.scrollY > 100) {
+    // Gestion du scroll
+    const handleScroll = () => {
+      // Effet sur le header
+      if (window.scrollY > 50) {
         header.classList.add('header-scrolled');
       } else {
         header.classList.remove('header-scrolled');
       }
+      
+      // Indicateur de scroll
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      scrollIndicator.style.width = scrolled + "%";
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Menu mobile
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-x"></i>';
+    });
+    
+    closeMobileMenu.addEventListener('click', () => {
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+    });
+    
+    // Fermer le menu en cliquant sur un lien
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+        
+        // Mettre à jour l'état actif
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+    
+    // Fermer le menu en cliquant à l'extérieur
+    mobileOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileOverlay) {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+      }
     });
     
     // Filtrage des projets
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.col-lg-4');
-    
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         // Retirer la classe active de tous les boutons
@@ -900,12 +1512,24 @@
         projectCards.forEach(card => {
           if (filter === 'all') {
             card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 10);
           } else {
             const status = card.getAttribute('data-status');
             if (status === filter) {
               card.style.display = 'block';
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, 10);
             } else {
-              card.style.display = 'none';
+              card.style.opacity = '0';
+              card.style.transform = 'translateY(20px)';
+              setTimeout(() => {
+                card.style.display = 'none';
+              }, 300);
             }
           }
         });
@@ -930,10 +1554,35 @@
           progressObserver.unobserve(progressBar);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
     
     progressBars.forEach(bar => {
       progressObserver.observe(bar);
+    });
+    
+    // Animation d'apparition des cartes
+    const cardsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    projectCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      cardsObserver.observe(card);
+    });
+    
+    // Initialiser l'indicateur de scroll
+    scrollIndicator.style.width = '0%';
+    
+    // Initialiser l'état visible pour les sections dans le viewport
+    document.addEventListener('DOMContentLoaded', () => {
+      handleScroll(); // Vérifier l'état initial
     });
   </script>
 </body>

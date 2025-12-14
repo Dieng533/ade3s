@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact – ADE3S</title>
+  <title>Contact – ADE3S | Association pour le Développement Environnemental, Sanitaire et Social</title>
   <meta name="description" content="Contactez l'ADE3S pour toute question, collaboration ou soutien à nos actions de développement durable à Saint-Louis et Gandon.">
   
   <!-- Polices Google Fonts -->
@@ -22,13 +22,15 @@
       --primary-dark: #1F6B47;
       --primary-light: #E8F5E9;
       --secondary: #FF7E36;
+      --accent: #3A86FF;
       --dark: #1A2E35;
       --light: #F8F9FA;
       --gray: #6C757D;
       --white: #FFFFFF;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
       --radius: 12px;
-      --transition: all 0.3s ease;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
@@ -43,6 +45,8 @@
       color: var(--dark);
       background-color: var(--white);
       overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-top: 80px;
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -54,118 +58,351 @@
     
     .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
     }
     
-    /* Header et Navigation */
+    /* ===== BARRE DE NAVIGATION ===== */
     header {
-      background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 1000;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
       transition: var(--transition);
     }
     
     .header-scrolled {
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      border-bottom-color: rgba(46, 139, 87, 0.1);
     }
     
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 0;
+      padding: 0.8rem 0;
+      position: relative;
     }
     
-    .logo {
+    /* Logo Section */
+    .logo-container {
       display: flex;
       align-items: center;
+      gap: 15px;
       text-decoration: none;
-      color: var(--dark);
-      font-weight: 700;
-      font-size: 1.5rem;
       transition: var(--transition);
     }
     
-    .logo img {
-      height: 50px;
-      width: auto;
-      margin-right: 10px;
+    .logo-container:hover {
+      transform: translateY(-2px);
+    }
+    
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.2);
       transition: var(--transition);
     }
     
-    /* Logo adaptatif */
-    .navbar-scrolled .logo img {
+    .logo-container:hover .logo-img {
+      transform: rotate(-5deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.3);
+    }
+    
+    .logo-img img {
+      width: 40px;
       height: 40px;
+      filter: brightness(0) invert(1);
     }
     
-    .navbar-scrolled .logo {
-      font-size: 1.3rem;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    
+    .logo-sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    /* Navigation principale */
+    .nav-main {
+      display: flex;
+      align-items: center;
+      gap: 40px;
     }
     
     .nav-links {
       display: flex;
       list-style: none;
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
     
-    .nav-links li {
-      margin-left: 2rem;
-    }
-    
-    .nav-links a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 500;
-      transition: var(--transition);
+    .nav-item {
       position: relative;
-      padding: 5px 0;
     }
     
-    .nav-links a:hover {
-      color: var(--primary);
+    .nav-link {
+      text-decoration: none;
+      color: var(--gray);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
     }
     
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--primary);
+    .nav-link i {
+      font-size: 1.1rem;
       transition: var(--transition);
     }
     
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
-    .nav-links a.active {
+    .nav-link:hover {
       color: var(--primary);
+      background: rgba(46, 139, 87, 0.05);
     }
     
-    .nav-links a.active::after {
-      width: 100%;
+    .nav-link:hover i {
+      transform: scale(1.1);
     }
     
+    .nav-link.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+    }
+    
+    .nav-link.active i {
+      color: var(--white);
+    }
+    
+    /* Bouton action spécial */
+    .nav-action {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .btn-donate {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(255, 126, 54, 0.3);
+    }
+    
+    .btn-donate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 126, 54, 0.4);
+      background: linear-gradient(135deg, #FF6B35, #FF5722);
+    }
+    
+    /* Menu mobile (caché par défaut) */
     .mobile-menu-btn {
       display: none;
-      background: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      color: var(--white);
       font-size: 1.5rem;
-      color: var(--dark);
       cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
     }
     
-    /* Hero Section */
-    .contact-hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    .mobile-menu-btn:hover {
+      transform: rotate(90deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+    }
+    
+    /* Menu mobile overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(26, 46, 53, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .mobile-nav-links {
+      list-style: none;
+      text-align: center;
+    }
+    
+    .mobile-nav-links li {
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active .mobile-nav-links li {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(0.1s * var(--i));
+    }
+    
+    .mobile-nav-links a {
       color: var(--white);
-      padding: 160px 0 80px;
+      text-decoration: none;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 40px;
+      border-radius: 50px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .mobile-nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .mobile-nav-links a:hover::before {
+      width: 100%;
+    }
+    
+    .mobile-nav-links a i {
+      font-size: 1.5rem;
+    }
+    
+    .mobile-nav-links a.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+    }
+    
+    .close-mobile-menu {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .close-mobile-menu:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .mobile-donate-btn {
+      margin-top: 40px;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      text-decoration: none;
+    }
+    
+    .mobile-overlay.active .mobile-donate-btn {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+    
+    .mobile-donate-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 126, 54, 0.4);
+    }
+    
+    /* ===== HERO SECTION ===== */
+    .contact-hero {
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.9) 0%, rgba(31, 107, 71, 0.9) 100%), url('assets/images/contact-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--white);
+      padding: 160px 0 100px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -178,7 +415,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjA1Ij48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
       opacity: 0.1;
     }
     
@@ -190,20 +427,42 @@
     }
     
     .contact-hero h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 1.5rem;
       color: var(--white);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.8s ease;
     }
     
     .contact-hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
       opacity: 0.9;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1s ease;
     }
     
-    /* Section Styles */
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.2s ease;
+    }
+    
+    /* ===== SECTION STYLES ===== */
     .section {
-      padding: 80px 0;
+      padding: 100px 0;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .section-title {
@@ -212,21 +471,22 @@
     }
     
     .section-title h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--dark);
       position: relative;
       display: inline-block;
+      padding-bottom: 15px;
     }
     
     .section-title h2::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
       border-radius: 2px;
     }
     
@@ -234,21 +494,50 @@
       max-width: 700px;
       margin: 1.5rem auto 0;
       color: var(--gray);
+      font-size: 1.1rem;
     }
     
-    /* Contact Content */
+    /* ===== CONTENT CONTAINER ===== */
     .contact-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 50px;
+      gap: 60px;
     }
     
-    /* Contact Form */
+    /* ===== CONTACT FORM ===== */
     .contact-form {
       background-color: var(--white);
       border-radius: var(--radius);
-      padding: 40px;
+      padding: 50px;
       box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .contact-form h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    .form-intro {
+      color: var(--gray);
+      margin-bottom: 40px !important;
+      font-size: 1.05rem;
+    }
+    
+    /* Form Styles */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+    
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
     
     .form-group {
@@ -256,36 +545,115 @@
     }
     
     .form-label {
-      display: block;
-      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
       font-weight: 600;
       color: var(--dark);
+      font-size: 1rem;
     }
     
     .form-control {
       width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      padding: 16px 20px;
+      border: 1px solid #e1e5e9;
+      border-radius: var(--radius);
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
       transition: var(--transition);
+      background-color: var(--light);
     }
     
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+      background-color: var(--white);
     }
     
     textarea.form-control {
-      min-height: 120px;
+      min-height: 160px;
       resize: vertical;
+      line-height: 1.5;
     }
     
+    /* Error Messages */
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+    
+    /* Character Counter */
+    .char-counter {
+      text-align: right;
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-top: 8px;
+    }
+    
+    .char-counter.warning {
+      color: #ffc107;
+    }
+    
+    .char-counter.error {
+      color: #dc3545;
+    }
+    
+    /* Checkbox */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 25px;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      accent-color: var(--primary);
+    }
+    
+    .checkbox-group label {
+      font-size: 0.95rem;
+      color: var(--gray);
+      cursor: pointer;
+      line-height: 1.5;
+      flex: 1;
+    }
+    
+    /* Form Message */
+    .form-message {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: var(--radius);
+      display: none;
+      font-weight: 500;
+    }
+    
+    .form-message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+    
+    .form-message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+    
+    /* ===== BUTTONS ===== */
     .btn {
-      display: inline-block;
-      padding: 12px 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 35px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
@@ -293,20 +661,56 @@
       border: none;
       cursor: pointer;
       font-size: 1rem;
+      gap: 10px;
     }
     
     .btn-primary {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.3);
     }
     
     .btn-primary:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(46, 139, 87, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(46, 139, 87, 0.4);
     }
     
-    /* Contact Info */
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--white);
+      transform: translateY(-5px);
+    }
+    
+    /* Spinner */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--white);
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* ===== CONTACT INFO ===== */
     .contact-info {
       display: flex;
       flex-direction: column;
@@ -316,109 +720,289 @@
     .info-card {
       background-color: var(--white);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 40px;
       box-shadow: var(--shadow);
       transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     .info-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
     }
     
     .info-header {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     
     .info-icon {
-      width: 60px;
-      height: 60px;
-      background-color: var(--primary-light);
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 15px;
-      color: var(--primary);
-      font-size: 1.5rem;
+      margin-right: 20px;
+      color: var(--white);
+      font-size: 1.8rem;
+      flex-shrink: 0;
     }
     
     .info-title {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       color: var(--dark);
     }
     
     .info-content p {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       color: var(--gray);
+      font-size: 1.05rem;
+      line-height: 1.6;
     }
     
     .info-content a {
       color: var(--primary);
       text-decoration: none;
       transition: var(--transition);
+      font-weight: 500;
     }
     
     .info-content a:hover {
       color: var(--primary-dark);
+      text-decoration: underline;
     }
     
-    /* Map */
+    /* ===== MAP CONTAINER ===== */
     .map-container {
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .map-header {
+      background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+      padding: 25px 30px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .map-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+    }
+    
+    .map-legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .legend-marker {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    .legend-marker.primary {
+      background-color: var(--primary);
+    }
+    
+    .legend-marker.secondary {
+      background-color: var(--accent);
+    }
+    
+    .map-wrapper {
+      position: relative;
       height: 300px;
     }
     
-    .map-container iframe {
+    .map-wrapper iframe {
       width: 100%;
       height: 100%;
       border: none;
+      display: block;
     }
     
-    /* Team Section */
+    .map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .map-pin {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: var(--transition);
+    }
+    
+    .map-pin.primary {
+      background-color: var(--primary);
+      border: 3px solid var(--white);
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+    }
+    
+    .map-pin.secondary {
+      background-color: var(--accent);
+      border: 3px solid var(--white);
+      box-shadow: 0 4px 15px rgba(58, 134, 255, 0.4);
+    }
+    
+    .map-pin:hover {
+      transform: scale(1.2);
+    }
+    
+    .pin-tooltip {
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      font-size: 0.9rem;
+      color: var(--dark);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .map-pin:hover .pin-tooltip {
+      opacity: 1;
+      visibility: visible;
+      bottom: 30px;
+    }
+    
+    .map-footer {
+      background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+      padding: 20px 30px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+    
+    .map-footer p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    /* ===== TEAM SECTION ===== */
     .team-section {
-      background-color: var(--light);
+      background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
     }
     
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
+      margin-top: 40px;
     }
     
     .team-card {
-      background-color: var(--white);
+      background: var(--white);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 35px 30px;
       text-align: center;
       box-shadow: var(--shadow);
       transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .team-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .team-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
     }
     
     .team-image {
-      width: 100px;
-      height: 100px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       overflow: hidden;
-      margin: 0 auto 20px;
-      border: 3px solid var(--primary-light);
+      margin: 0 auto 25px;
+      border: 5px solid var(--primary-light);
+      position: relative;
     }
     
     .team-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .team-card:hover .team-image img {
+      transform: scale(1.1);
+    }
+    
+    .team-social {
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+    }
+    
+    .team-card:hover .team-social {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .team-social a {
+      width: 38px;
+      height: 38px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .team-social a:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
     }
     
     .team-name {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 5px;
       color: var(--dark);
     }
@@ -426,15 +1010,17 @@
     .team-position {
       color: var(--primary);
       margin-bottom: 15px;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 1rem;
     }
     
     .team-contact {
       color: var(--gray);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
     
-    /* FAQ Section */
+    /* ===== FAQ SECTION ===== */
     .faq-section {
       margin-top: 80px;
     }
@@ -445,31 +1031,46 @@
       margin-bottom: 15px;
       box-shadow: var(--shadow);
       overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+    
+    .faq-item:hover {
+      box-shadow: var(--shadow-hover);
     }
     
     .faq-question {
-      padding: 20px;
+      padding: 25px 30px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: var(--transition);
+      font-size: 1.1rem;
+      color: var(--dark);
     }
     
     .faq-question:hover {
-      background-color: var(--primary-light);
+      background-color: rgba(46, 139, 87, 0.03);
+    }
+    
+    .faq-question i {
+      transition: var(--transition);
+      color: var(--primary);
     }
     
     .faq-answer {
-      padding: 0 20px;
+      padding: 0 30px;
       max-height: 0;
       overflow: hidden;
       transition: var(--transition);
+      color: var(--gray);
+      line-height: 1.7;
     }
     
     .faq-item.active .faq-answer {
-      padding: 0 20px 20px;
+      padding: 0 30px 30px;
       max-height: 500px;
     }
     
@@ -477,11 +1078,91 @@
       transform: rotate(180deg);
     }
     
-    /* Footer */
+    /* ===== NEWSLETTER SECTION ===== */
+    .newsletter-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: var(--radius);
+      padding: 60px;
+      text-align: center;
+      margin: 80px 0;
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+    
+    .newsletter-section h3 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .newsletter-section p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      gap: 15px;
+    }
+    
+    .newsletter-form input {
+      flex: 1;
+      padding: 16px 25px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .newsletter-form input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+    
+    /* ===== WHATSAPP FLOAT BUTTON ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+      z-index: 1000;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+    
+    .whatsapp-float:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+      background: #128C7E;
+    }
+    
+    .whatsapp-float i {
+      font-size: 1.3rem;
+    }
+    
+    /* ===== FOOTER ===== */
     footer {
-      background-color: var(--dark);
+      background: linear-gradient(135deg, var(--dark) 0%, #0d1a22 100%);
       color: var(--white);
       padding: 80px 0 30px;
+      margin-top: 80px;
     }
     
     .footer-content {
@@ -492,7 +1173,7 @@
     }
     
     .footer-column h3 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 25px;
       position: relative;
       padding-bottom: 10px;
@@ -505,7 +1186,7 @@
       left: 0;
       width: 40px;
       height: 3px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
     }
     
     .footer-links {
@@ -520,6 +1201,9 @@
       color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
       transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .footer-links a:hover {
@@ -540,10 +1224,13 @@
     .contact-info-list i {
       margin-right: 10px;
       color: var(--primary);
+      font-size: 1.1rem;
+      margin-top: 3px;
     }
     
     .social-links {
       display: flex;
+      gap: 10px;
       margin-top: 20px;
     }
     
@@ -551,14 +1238,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      margin-right: 10px;
       color: var(--white);
       text-decoration: none;
       transition: var(--transition);
+      font-size: 1.2rem;
     }
     
     .social-links a:hover {
@@ -574,66 +1261,118 @@
       font-size: 0.9rem;
     }
     
-    /* Responsive Design */
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .nav-main {
+        gap: 25px;
+      }
+      
+      .nav-links {
+        gap: 2px;
+      }
+      
+      .nav-link {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-donate {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+      
+      .contact-hero h1 {
+        font-size: 3rem;
+      }
+    }
+    
     @media (max-width: 992px) {
       .contact-container {
         grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .btn-donate {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .logo-main {
+        font-size: 1.6rem;
+      }
+      
+      .logo-img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .logo-img img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .contact-hero {
+        padding: 140px 0 80px;
+        background-attachment: scroll;
       }
       
       .contact-hero h1 {
         font-size: 2.5rem;
       }
+      
+      .contact-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section {
+        padding: 80px 0;
+      }
+      
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      
+      .contact-form {
+        padding: 40px 30px;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+      
+      .newsletter-form input {
+        width: 100%;
+      }
     }
     
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-      
-      .nav-links.active {
-        display: flex;
-      }
-      
-      .nav-links li {
-        margin: 10px 0;
-      }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
-      .contact-hero {
-        padding: 140px 0 60px;
+      .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       }
       
       .contact-hero h1 {
         font-size: 2.2rem;
-      }
-      
-      .section {
-        padding: 60px 0;
-      }
-      
-      .section-title h2 {
-        font-size: 2rem;
-      }
-      
-      .contact-form {
-        padding: 30px 20px;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .team-grid {
-        grid-template-columns: 1fr;
       }
       
       .info-header {
@@ -645,32 +1384,208 @@
         margin-right: 0;
         margin-bottom: 15px;
       }
+      
+      .newsletter-section {
+        padding: 40px 30px;
+      }
+      
+      .newsletter-section h3 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .logo-container {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .logo-main {
+        font-size: 1.4rem;
+      }
+      
+      .logo-sub {
+        font-size: 0.7rem;
+      }
+      
+      .logo-img {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .logo-img img {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .mobile-menu-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+      
+      .mobile-nav-links a {
+        font-size: 1.5rem;
+        padding: 12px 30px;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-hero p {
+        font-size: 1rem;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-form {
+        padding: 30px 20px;
+      }
+      
+      .map-header {
+        padding: 20px;
+      }
+      
+      .map-legend {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+      
+      .whatsapp-float span {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Barre de Navigation -->
   <header id="header">
     <div class="container">
       <nav class="navbar">
-        <a href="index.html" class="logo">
-          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        <!-- Logo -->
+        <a href="index.html" class="logo-container">
+          <div class="logo-img">
+            <img src="./assets/logo_adess.png" alt="ADE3S Logo">
+          </div>
         </a>
         
+        <!-- Navigation Desktop -->
+        <div class="nav-main">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">
+                <i class="bi bi-house-door"></i>
+                <span>Accueil</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">
+                <i class="bi bi-info-circle"></i>
+                <span>À propos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="actions.html" class="nav-link">
+                <i class="bi bi-activity"></i>
+                <span>Nos Actions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="projects.html" class="nav-link">
+                <i class="bi bi-folder"></i>
+                <span>Projets</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="blog.html" class="nav-link">
+                <i class="bi bi-newspaper"></i>
+                <span>Actualités</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link active">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </li>
+          </ul>
+          
+          <!-- Bouton d'action -->
+          <div class="nav-action">
+            <a href="donate.html" class="btn-donate">
+              <i class="bi bi-heart-fill"></i>
+              <span>Faire un don</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Bouton Menu Mobile -->
         <button class="mobile-menu-btn" id="mobileMenuBtn">
           <i class="bi bi-list"></i>
         </button>
-        
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="about.html">À propos</a></li>
-          <li><a href="actions.html">Nos Actions</a></li>
-          <li><a href="projects.html">Projets</a></li>
-          <li><a href="blog.html">Actualités</a></li>
-          <li><a href="donate.html">Don / Partenariat</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
-        </ul>
       </nav>
+    </div>
+    
+    <!-- Overlay Menu Mobile -->
+    <div class="mobile-overlay" id="mobileOverlay">
+      <button class="close-mobile-menu" id="closeMobileMenu">
+        <i class="bi bi-x"></i>
+      </button>
+      
+      <ul class="mobile-nav-links">
+        <li style="--i: 0;">
+          <a href="index.html">
+            <i class="bi bi-house-door"></i>
+            <span>Accueil</span>
+          </a>
+        </li>
+        <li style="--i: 1;">
+          <a href="about.html">
+            <i class="bi bi-info-circle"></i>
+            <span>À propos</span>
+          </a>
+        </li>
+        <li style="--i: 2;">
+          <a href="actions.html">
+            <i class="bi bi-activity"></i>
+            <span>Nos Actions</span>
+          </a>
+        </li>
+        <li style="--i: 3;">
+          <a href="projects.html">
+            <i class="bi bi-folder"></i>
+            <span>Projets</span>
+          </a>
+        </li>
+        <li style="--i: 4;">
+          <a href="blog.html">
+            <i class="bi bi-newspaper"></i>
+            <span>Actualités</span>
+          </a>
+        </li>
+        <li style="--i: 5;">
+          <a href="contact.html" class="active">
+            <i class="bi bi-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <a href="donate.html" class="mobile-donate-btn">
+        <i class="bi bi-heart-fill"></i>
+        <span>Faire un don</span>
+      </a>
     </div>
   </header>
 
@@ -678,56 +1593,97 @@
   <section class="contact-hero">
     <div class="container">
       <div class="contact-hero-content">
-        <h1>Contactez-nous</h1>
-        <p>Nous sommes à votre écoute pour répondre à vos questions, discuter de collaborations ou recevoir vos suggestions</p>
+        <h1>Contactez l'ADE3S</h1>
+        <p>Nous sommes à votre écoute pour répondre à vos questions, discuter de collaborations ou recevoir vos suggestions pour construire ensemble un Saint-Louis durable.</p>
+        <div class="hero-buttons">
+          <a href="#contact-form" class="btn btn-primary">
+            <i class="bi bi-envelope"></i> Envoyer un message
+          </a>
+          <a href="donate.html" class="btn btn-secondary">
+            <i class="bi bi-heart-fill"></i> Soutenir nos actions
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section class="section">
+  <section class="section" id="contact">
     <div class="container">
       <div class="contact-container">
         <!-- Contact Form -->
-        <div class="contact-form">
+        <div class="contact-form" id="contact-form">
           <h2>Envoyez-nous un message</h2>
-          <p class="text-muted" style="margin-bottom: 30px;">Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+          <p class="form-intro">Nous vous répondrons dans les 24 à 48 heures.</p>
           
-          <form method="post" action="server/contact.php">
-            <div class="form-group">
-              <label class="form-label">Nom complet *</label>
-              <input type="text" class="form-control" name="name" required>
+          <form id="contactForm" method="POST" action="#">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="bi bi-person"></i> Nom complet *
+                </label>
+                <input type="text" class="form-control" name="name" id="name" required placeholder="Votre nom et prénom">
+                <div class="error-message" id="nameError"></div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="bi bi-envelope"></i> Email *
+                </label>
+                <input type="email" class="form-control" name="email" id="email" required placeholder="votre@email.com">
+                <div class="error-message" id="emailError"></div>
+              </div>
             </div>
             
             <div class="form-group">
-              <label class="form-label">Email *</label>
-              <input type="email" class="form-control" name="email" required>
+              <label class="form-label">
+                <i class="bi bi-telephone"></i> Téléphone
+              </label>
+              <input type="tel" class="form-control" name="phone" id="phone" placeholder="+221 XX XXX XX XX">
             </div>
             
             <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <input type="tel" class="form-control" name="phone">
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label">Sujet *</label>
-              <select class="form-control" name="subject" required>
+              <label class="form-label">
+                <i class="bi bi-chat-dots"></i> Sujet *
+              </label>
+              <select class="form-control" name="subject" id="subject" required>
                 <option value="">Sélectionnez un sujet</option>
-                <option value="general">Question générale</option>
-                <option value="partnership">Partenariat</option>
-                <option value="donation">Don</option>
-                <option value="volunteer">Bénévolat</option>
-                <option value="project">Projet</option>
-                <option value="other">Autre</option>
+                <option value="partnership">Partenariat stratégique</option>
+                <option value="donation">Faire un don</option>
+                <option value="volunteer">Devenir bénévole</option>
+                <option value="collaboration">Proposition de collaboration</option>
+                <option value="information">Demande d'information</option>
+                <option value="project">Soumettre un projet</option>
+                <option value="other">Autre demande</option>
               </select>
             </div>
             
             <div class="form-group">
-              <label class="form-label">Message *</label>
-              <textarea class="form-control" rows="5" name="message" placeholder="Décrivez votre demande en détail..." required></textarea>
+              <label class="form-label">
+                <i class="bi bi-pencil"></i> Votre message *
+              </label>
+              <textarea class="form-control" name="message" id="message" rows="6" 
+                        placeholder="Décrivez votre demande en détail..." required></textarea>
+              <div class="char-counter" id="charCounter">
+                <span id="charCount">0</span> / 1000 caractères
+              </div>
             </div>
             
-            <button type="submit" class="btn btn-primary">Envoyer le message</button>
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">
+                  Je souhaite recevoir les actualités de l'ADE3S (environ 1 email/mois)
+                </label>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <i class="bi bi-send"></i> Envoyer le message
+              <div class="spinner" id="formSpinner"></div>
+            </button>
+            
+            <div id="formMessage" class="form-message"></div>
           </form>
         </div>
         
@@ -742,8 +1698,9 @@
               <h3 class="info-title">Notre siège</h3>
             </div>
             <div class="info-content">
-              <p>Saint-Louis, Sénégal</p>
+              <p><strong>Saint-Louis, Sénégal</strong></p>
               <p>Zone d'intervention : Saint-Louis, Gandon et villages environnants</p>
+              <p>Nous intervenons dans toute la région pour nos actions de développement durable</p>
             </div>
           </div>
           
@@ -756,9 +1713,10 @@
               <h3 class="info-title">Coordonnées</h3>
             </div>
             <div class="info-content">
-              <p><i class="bi bi-phone"></i> <a href="tel:+221331234567">+221 533 57 20</a></p>
-              <p><i class="bi bi-whatsapp"></i> <a href="https://wa.me/221771234567">+221 77 161 49 61</a></p>
+              <p><i class="bi bi-phone"></i> <a href="tel:+2215335720">+221 533 57 20</a></p>
+              <p><i class="bi bi-whatsapp"></i> <a href="https://wa.me/221771614961" target="_blank">+221 77 161 49 61</a></p>
               <p><i class="bi bi-envelope"></i> <a href="mailto:contact@ade3s.org">contact@ade3s.org</a></p>
+              <p><i class="bi bi-globe"></i> <a href="https://ade3s.org" target="_blank">www.ade3s.org</a></p>
             </div>
           </div>
           
@@ -774,23 +1732,67 @@
               <p><strong>Lundi - Vendredi:</strong> 9h00 - 17h00</p>
               <p><strong>Samedi:</strong> 9h00 - 13h00</p>
               <p><strong>Dimanche:</strong> Fermé</p>
+              <p><em>Sur rendez-vous en dehors de ces horaires</em></p>
             </div>
           </div>
           
           <!-- Map -->
           <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.170239200635!2d-16.48938862468637!3d16.02459528561877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec1a3d92d7c0c91%3A0x9c4696b2c9b4d1!2sSaint-Louis%2C%20Senegal!5e0!3m2!1sen!2sfr!4v1698765432105!5m2!1sen!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-header">
+              <h3><i class="bi bi-geo-alt"></i> Nos zones d'intervention</h3>
+              <div class="map-legend">
+                <span class="legend-item">
+                  <span class="legend-marker primary"></span> Siège principal
+                </span>
+                <span class="legend-item">
+                  <span class="legend-marker secondary"></span> Zones d'action
+                </span>
+              </div>
+            </div>
+            <div class="map-wrapper">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.170239200635!2d-16.48938872468637!3d16.02459528561877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec1a3d92d7c0c91%3A0x9c4696b2c9b4d1!2sSaint-Louis%2C%20Senegal!5e0!3m2!1sen!2sfr!4v1698765432105!5m2!1sen!2sfr" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+              <div class="map-overlay">
+                <div class="map-pin primary" style="top: 40%; left: 45%;">
+                  <div class="pin-tooltip">Siège ADE3S<br>Saint-Louis</div>
+                </div>
+                <div class="map-pin secondary" style="top: 35%; left: 50%;">
+                  <div class="pin-tooltip">Zone Gandon</div>
+                </div>
+              </div>
+            </div>
+            <div class="map-footer">
+              <p><i class="bi bi-info-circle"></i> Nous intervenons principalement dans la région de Saint-Louis</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Newsletter Section -->
+  <div class="container">
+    <div class="newsletter-section">
+      <h3><i class="bi bi-envelope-paper"></i> Restez informé</h3>
+      <p>Recevez nos actualités, appels à participation et rapports d'activités directement dans votre boîte mail.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Votre adresse email" required>
+        <button type="submit" class="btn btn-secondary">
+          <i class="bi bi-check-circle"></i> S'inscrire
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Team Section -->
   <section class="section team-section">
     <div class="container">
       <div class="section-title">
-        <h2>Notre équipe</h2>
+        <h2>Notre équipe de contact</h2>
         <p>Rencontrez les membres clés de notre équipe que vous pouvez contacter directement</p>
       </div>
       
@@ -798,37 +1800,82 @@
         <div class="team-card">
           <div class="team-image">
             <img src="./assets/tof-president.jpeg" alt="Dr Ousmane Fall">
+            <div class="team-social">
+              <a href="mailto:president@ade3s.org" title="Envoyer un email">
+                <i class="bi bi-envelope"></i>
+              </a>
+              <a href="tel:+221771614961" title="Appeler">
+                <i class="bi bi-telephone"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" title="Profil LinkedIn">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
           </div>
           <h3 class="team-name">Dr Ousmane Fall</h3>
           <p class="team-position">Président Fondateur</p>
           <p class="team-contact">contact@ade3s.org</p>
+          <p class="team-contact">+221 77 161 49 61</p>
         </div>
         
         <div class="team-card">
           <div class="team-image">
             <img src="./assets/placeholder-team.jpg" alt="Coordinateur Projets">
+            <div class="team-social">
+              <a href="mailto:projets@ade3s.org" title="Envoyer un email">
+                <i class="bi bi-envelope"></i>
+              </a>
+              <a href="tel:+221" title="Appeler">
+                <i class="bi bi-telephone"></i>
+              </a>
+            </div>
           </div>
           <h3 class="team-name">Maguette Dieng</h3>
           <p class="team-position">Coordinatrice des Projets</p>
           <p class="team-contact">projets@ade3s.org</p>
+          <p class="team-contact">Spécialiste en développement durable</p>
         </div>
         
         <div class="team-card">
           <div class="team-image">
             <img src="./assets/placeholder-team.jpg" alt="Responsable Partenariats">
+            <div class="team-social">
+              <a href="mailto:partenariats@ade3s.org" title="Envoyer un email">
+                <i class="bi bi-envelope"></i>
+              </a>
+              <a href="tel:+221" title="Appeler">
+                <i class="bi bi-telephone"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" title="Profil LinkedIn">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
           </div>
           <h3 class="team-name">Cheikh Diouck</h3>
           <p class="team-position">Responsable Partenariats</p>
           <p class="team-contact">partenariats@ade3s.org</p>
+          <p class="team-contact">Relations institutionnelles</p>
         </div>
         
         <div class="team-card">
           <div class="team-image">
             <img src="./assets/placeholder-team.jpg" alt="Chargée de Communication">
+            <div class="team-social">
+              <a href="mailto:communication@ade3s.org" title="Envoyer un email">
+                <i class="bi bi-envelope"></i>
+              </a>
+              <a href="tel:+221" title="Appeler">
+                <i class="bi bi-telephone"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" title="Profil LinkedIn">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
           </div>
           <h3 class="team-name">Salymata Ndiaye</h3>
           <p class="team-position">Chargée de Communication</p>
           <p class="team-contact">communication@ade3s.org</p>
+          <p class="team-contact">Médias et réseaux sociaux</p>
         </div>
       </div>
     </div>
@@ -849,7 +1896,7 @@
             <i class="bi bi-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Nous accueillons toujours avec plaisir de nouveaux bénévoles. Vous pouvez nous contacter via le formulaire en sélectionnant "Bénévolat" comme sujet, ou nous envoyer un email à benevolat@ade3s.org avec votre domaine d'intérêt et disponibilités.</p>
+            <p>Nous accueillons toujours avec plaisir de nouveaux bénévoles. Vous pouvez nous contacter via le formulaire en sélectionnant "Bénévolat" comme sujet, ou nous envoyer un email à <a href="mailto:benevolat@ade3s.org">benevolat@ade3s.org</a> avec votre domaine d'intérêt et disponibilités. Nous organisons régulièrement des sessions d'information pour les nouveaux bénévoles.</p>
           </div>
         </div>
         
@@ -859,7 +1906,7 @@
             <i class="bi bi-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>L'ADE3S intervient dans quatre domaines principaux : Environnement (reboisement, sensibilisation), Santé (consultations gratuites, dons de médicaments), Social (soutien aux familles, éducation) et Économie (soutien à l'agriculture, création d'emplois).</p>
+            <p>L'ADE3S intervient dans trois domaines principaux : <strong>Environnement</strong> (reboisement, sensibilisation, gestion des déchets), <strong>Santé</strong> (consultations gratuites, dons de médicaments, prévention) et <strong>Social</strong> (soutien aux familles, éducation, autonomisation des femmes). Nous travaillons également sur des projets transversaux combinant ces trois dimensions.</p>
           </div>
         </div>
         
@@ -869,7 +1916,7 @@
             <i class="bi bi-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Vous pouvez nous soumettre votre projet via le formulaire de contact en sélectionnant "Projet" comme sujet, ou directement contacter notre responsable des partenariats à partenariats@ade3s.org. Nous étudions chaque proposition avec attention.</p>
+            <p>Vous pouvez nous soumettre votre projet via le formulaire de contact en sélectionnant "Projet" comme sujet, ou directement contacter notre responsable des partenariats à <a href="mailto:partenariats@ade3s.org">partenariats@ade3s.org</a>. Nous étudions chaque proposition avec attention et organisons une réunion de cadrage pour les projets alignés avec nos objectifs stratégiques.</p>
           </div>
         </div>
         
@@ -879,12 +1926,29 @@
             <i class="bi bi-chevron-down"></i>
           </div>
           <div class="faq-answer">
-            <p>Notre association intervient principalement dans la région de Saint-Louis, notamment à Gandon et dans les villages environnants. Nous travaillons en étroite collaboration avec les communautés locales pour identifier leurs besoins spécifiques.</p>
+            <p>Notre association intervient principalement dans la région de Saint-Louis, notamment à Gandon et dans les villages environnants. Nous travaillons en étroite collaboration avec les communautés locales pour identifier leurs besoins spécifiques. Certains de nos projets ont également une dimension régionale en partenariat avec d'autres associations.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Comment fonctionnent les dons à l'ADE3S ?</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Les dons peuvent être effectués en ligne via notre page de don, par virement bancaire ou en espèces. Nous fournissons un reçu fiscal pour tous les dats déductibles d'impôts. L'intégralité des dons est consacrée à nos actions sur le terrain. Un rapport financier annuel est publié sur notre site web pour assurer la transparence.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/221771614961?text=Bonjour%20ADE3S,%20je%20vous%20contacte%20depuis%20votre%20site%20web" 
+     class="whatsapp-float" target="_blank">
+    <i class="bi bi-whatsapp"></i>
+    <span>Chat WhatsApp</span>
+  </a>
 
   <!-- Footer -->
   <footer>
@@ -892,36 +1956,35 @@
       <div class="footer-content">
         <div class="footer-column">
           <h3>ADE3S</h3>
-          <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <p>Association pour le Développement Environnemental, Sanitaire et Social de Saint-Louis. Catalyseur du changement pour une communauté durable, résiliente et inclusive.</p>
           <div class="social-links">
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="bi bi-facebook"></i></a>
+            <a href="#" target="_blank"><i class="bi bi-twitter"></i></a>
+            <a href="#" target="_blank"><i class="bi bi-instagram"></i></a>
+            <a href="#" target="_blank"><i class="bi bi-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
         
         <div class="footer-column">
-          <h3>Liens rapides</h3>
+          <h3>Navigation</h3>
           <ul class="footer-links">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="actions.html">Nos Actions</a></li>
-            <li><a href="projects.html">Projets</a></li>
-            <li><a href="blog.html">Actualités</a></li>
-            <li><a href="donate.html">Don / Partenariat</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html"><i class="bi bi-chevron-right"></i> Accueil</a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right"></i> À propos</a></li>
+            <li><a href="actions.html"><i class="bi bi-chevron-right"></i> Nos Actions</a></li>
+            <li><a href="projects.html"><i class="bi bi-chevron-right"></i> Projets</a></li>
+            <li><a href="blog.html"><i class="bi bi-chevron-right"></i> Actualités</a></li>
           </ul>
         </div>
         
         <div class="footer-column">
-          <h3>Nos domaines</h3>
+          <h3>Engagement</h3>
           <ul class="footer-links">
-            <li><a href="actions.html#env">Environnement</a></li>
-            <li><a href="actions.html#sante">Santé</a></li>
-            <li><a href="actions.html#social">Social</a></li>
-            <li><a href="actions.html#social">Économie</a></li>
-            <li><a href="donate.html">Partenariats</a></li>
+            <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Faire un don</a></li>
+            <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Devenir partenaire</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Devenir bénévole</a></li>
+            <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Nous contacter</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Transparence financière</a></li>
           </ul>
         </div>
         
@@ -929,69 +1992,324 @@
           <h3>Contact</h3>
           <ul class="contact-info-list">
             <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
-            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
-            <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
-            <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
+            <li><i class="bi bi-telephone"></i> <a href="tel:+2215335720">+221 533 57 20</a></li>
+            <li><i class="bi bi-whatsapp"></i> <a href="https://wa.me/221771614961" target="_blank">+221 77 161 49 61</a></li>
+            <li><i class="bi bi-envelope"></i> <a href="mailto:contact@ade3s.org">contact@ade3s.org</a></li>
+            <li><i class="bi bi-clock"></i> Lundi - Vendredi: 9h00 - 17h00</li>
           </ul>
         </div>
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
+        <p>&copy; 2023 ADE3S - Association pour le Développement Environnemental, Sanitaire et Social de Saint-Louis. Tous droits réservés.</p>
       </div>
     </div>
   </footer>
 
+  <!-- JavaScript -->
   <script>
-    // Menu mobile
+    // Initialisation des éléments DOM
+    const header = document.getElementById('header');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-links a');
+    const sections = document.querySelectorAll('.section');
+    const teamCards = document.querySelectorAll('.team-card');
+    const contactForm = document.getElementById('contactForm');
+    const newsletterForm = document.getElementById('newsletterForm');
+    const messageTextarea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    const charCounter = document.getElementById('charCounter');
+    const submitBtn = document.getElementById('submitBtn');
+    const formSpinner = document.getElementById('formSpinner');
+    const formMessage = document.getElementById('formMessage');
+    const faqItems = document.querySelectorAll('.faq-item');
     
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('header');
-      if (window.scrollY > 100) {
+    // Gestion du scroll
+    const handleScroll = () => {
+      // Effet sur le header
+      if (window.scrollY > 50) {
         header.classList.add('header-scrolled');
       } else {
         header.classList.remove('header-scrolled');
       }
+      
+      // Animation des sections
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+      
+      // Animation des cartes équipe
+      teamCards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        if (cardTop < window.innerHeight - 100) {
+          card.classList.add('visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Menu mobile
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-x"></i>';
     });
     
-    // FAQ accordion
-    const faqItems = document.querySelectorAll('.faq-item');
+    closeMobileMenu.addEventListener('click', () => {
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+    });
+    
+    // Fermer le menu en cliquant sur un lien
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+        
+        // Mettre à jour l'état actif
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+    
+    // Fermer le menu en cliquant à l'extérieur
+    mobileOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileOverlay) {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+      }
+    });
+    
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Fermer le menu mobile si ouvert
+          mobileOverlay.classList.remove('active');
+          document.body.style.overflow = 'auto';
+          mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+          
+          // Smooth scroll vers la section
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Observer pour les animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    // Observer les sections
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+    
+    // Observer les cartes équipe
+    teamCards.forEach(card => {
+      observer.observe(card);
+    });
+    
+    // Compteur de caractères pour le message
+    if (messageTextarea && charCount && charCounter) {
+      messageTextarea.addEventListener('input', function() {
+        const length = this.value.length;
+        charCount.textContent = length;
+        
+        if (length > 1000) {
+          this.value = this.value.substring(0, 1000);
+          charCount.textContent = 1000;
+          charCounter.className = 'char-counter error';
+        } else if (length > 800) {
+          charCounter.className = 'char-counter warning';
+        } else {
+          charCounter.className = 'char-counter';
+        }
+      });
+    }
+    
+    // Validation du formulaire de contact
+    if (contactForm) {
+      // Validation en temps réel
+      const inputs = contactForm.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+          validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+          clearError(this);
+        });
+      });
+      
+      // Soumission du formulaire
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Valider tous les champs
+        let isValid = true;
+        inputs.forEach(input => {
+          if (!validateField(input)) {
+            isValid = false;
+          }
+        });
+        
+        if (!isValid) {
+          showMessage('Veuillez corriger les erreurs dans le formulaire.', 'error');
+          return;
+        }
+        
+        // Afficher le spinner
+        submitBtn.disabled = true;
+        formSpinner.style.display = 'inline-block';
+        submitBtn.innerHTML = '<i class="bi bi-send"></i> Envoi en cours...';
+        
+        try {
+          // Simuler l'envoi (à remplacer par votre logique réelle)
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          
+          // Simuler une réponse réussie
+          showMessage('Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.', 'success');
+          contactForm.reset();
+          charCount.textContent = '0';
+          charCounter.className = 'char-counter';
+          
+        } catch (error) {
+          showMessage('Une erreur est survenue lors de l\'envoi. Veuillez réessayer.', 'error');
+        } finally {
+          // Réactiver le bouton
+          submitBtn.disabled = false;
+          formSpinner.style.display = 'none';
+          submitBtn.innerHTML = '<i class="bi bi-send"></i> Envoyer le message';
+        }
+      });
+    }
+    
+    // Fonctions de validation
+    function validateField(field) {
+      const errorElement = document.getElementById(field.id + 'Error');
+      
+      if (field.hasAttribute('required') && !field.value.trim()) {
+        showError(field, 'Ce champ est obligatoire');
+        return false;
+      }
+      
+      if (field.type === 'email' && field.value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(field.value)) {
+          showError(field, 'Veuillez entrer une adresse email valide');
+          return false;
+        }
+      }
+      
+      if (field.id === 'phone' && field.value) {
+        const phoneRegex = /^[+]?[0-9\s\-\(\)]{10,}$/;
+        if (!phoneRegex.test(field.value)) {
+          showError(field, 'Veuillez entrer un numéro de téléphone valide');
+          return false;
+        }
+      }
+      
+      clearError(field);
+      return true;
+    }
+    
+    function showError(field, message) {
+      field.style.borderColor = '#dc3545';
+      const errorElement = document.getElementById(field.id + 'Error');
+      if (errorElement) {
+        errorElement.textContent = message;
+      }
+    }
+    
+    function clearError(field) {
+      field.style.borderColor = '#e1e5e9';
+      const errorElement = document.getElementById(field.id + 'Error');
+      if (errorElement) {
+        errorElement.textContent = '';
+      }
+    }
+    
+    function showMessage(text, type) {
+      formMessage.textContent = text;
+      formMessage.className = `form-message ${type}`;
+      formMessage.style.display = 'block';
+      
+      // Masquer le message après 5 secondes
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Newsletter form
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('input[type="email"]').value;
+        
+        // Simuler l'inscription
+        showMessage('Merci ! Vous êtes maintenant inscrit à notre newsletter.', 'success');
+        this.reset();
+      });
+    }
+    
+    // FAQ accordéon
     faqItems.forEach(item => {
       const question = item.querySelector('.faq-question');
       question.addEventListener('click', () => {
+        // Fermer tous les autres items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+          }
+        });
+        
+        // Ouvrir/fermer l'item courant
         item.classList.toggle('active');
       });
     });
     
-    // Form validation
-    const contactForm = document.querySelector('form');
-    if (contactForm) {
-      contactForm.addEventListener('submit', function(e) {
-        const requiredFields = this.querySelectorAll('[required]');
-        let valid = true;
-        
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            valid = false;
-            field.style.borderColor = 'red';
-          } else {
-            field.style.borderColor = '#ddd';
-          }
-        });
-        
-        if (!valid) {
-          e.preventDefault();
-          alert('Veuillez remplir tous les champs obligatoires.');
-        }
+    // Initialiser l'état visible pour les éléments dans le viewport
+    document.addEventListener('DOMContentLoaded', () => {
+      handleScroll(); // Vérifier l'état initial
+    });
+    
+    // Gestion des marqueurs sur la carte
+    const mapPins = document.querySelectorAll('.map-pin');
+    mapPins.forEach(pin => {
+      pin.addEventListener('mouseenter', () => {
+        pin.classList.add('hover');
       });
-    }
+      
+      pin.addEventListener('mouseleave', () => {
+        pin.classList.remove('hover');
+      });
+    });
   </script>
 </body>
 </html>

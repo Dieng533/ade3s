@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADE3S – Association pour le Développement environnementale, Sanitaire et Social</title>
-  <meta name="description" content="ADE3S – Environnement, Santé, Social & Économie à Saint-Louis et Gandon.">
+  <title>ADE3S – Association pour le Développement Environnemental, Sanitaire et Social</title>
+  <meta name="description" content="ADE3S œuvre pour le développement durable à Saint-Louis : environnement, santé, social et autonomisation des communautés.">
   
   <!-- Polices Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <link rel="shortcut icon" href="./assets/logo_adess.png" type="image/x-icon">
+  
   <!-- CSS personnalisé -->
   <style>
     :root {
@@ -21,13 +22,15 @@
       --primary-dark: #1F6B47;
       --primary-light: #E8F5E9;
       --secondary: #FF7E36;
+      --accent: #3A86FF;
       --dark: #1A2E35;
       --light: #F8F9FA;
       --gray: #6C757D;
       --white: #FFFFFF;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
       --radius: 12px;
-      --transition: all 0.3s ease;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
@@ -42,6 +45,8 @@
       color: var(--dark);
       background-color: var(--white);
       overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-top: 80px; /* Compense la navbar fixe */
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -53,122 +58,373 @@
     
     .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
     }
     
-    /* Header et Navigation */
+    /* ===== BARRE DE NAVIGATION REVUE ===== */
     header {
-      background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 1000;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
       transition: var(--transition);
     }
     
     .header-scrolled {
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      border-bottom-color: rgba(46, 139, 87, 0.1);
     }
     
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 0;
+      padding: 0.8rem 0;
+      position: relative;
     }
     
-    .logo {
+    /* Logo Section */
+    .logo-container {
       display: flex;
       align-items: center;
+      gap: 15px;
       text-decoration: none;
-      color: var(--dark);
-      font-weight: 700;
-      font-size: 1.5rem;
       transition: var(--transition);
     }
     
-    .logo img {
-      height: 50px;
-      width: auto;
-      margin-right: 10px;
+    .logo-container:hover {
+      transform: translateY(-2px);
+    }
+    
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.2);
       transition: var(--transition);
     }
-
     
-    /* Logo adaptatif */
-    .navbar-scrolled .logo img {
+    .logo-container:hover .logo-img {
+      transform: rotate(-5deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.3);
+    }
+    
+    .logo-img img {
+      width: 40px;
       height: 40px;
+      filter: brightness(0) invert(1);
     }
     
-    .navbar-scrolled .logo {
-      font-size: 1.3rem;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    
+    .logo-sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    /* Navigation principale */
+    .nav-main {
+      display: flex;
+      align-items: center;
+      gap: 40px;
     }
     
     .nav-links {
       display: flex;
       list-style: none;
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
     
-    .nav-links li {
-      margin-left: 2rem;
+    .nav-item {
+      position: relative;
     }
     
-    .nav-links a {
+    .nav-link {
       text-decoration: none;
-      color: var(--dark);
+      color: var(--gray);
       font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .nav-link i {
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(46, 139, 87, 0.05);
+    }
+    
+    .nav-link:hover i {
+      transform: scale(1.1);
+    }
+    
+    .nav-link.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+    }
+    
+    .nav-link.active i {
+      color: var(--white);
+    }
+    
+    /* Bouton action spécial */
+    .nav-action {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .btn-donate {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(255, 126, 54, 0.3);
+    }
+    
+    .btn-donate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 126, 54, 0.4);
+      background: linear-gradient(135deg, #FF6B35, #FF5722);
+    }
+    
+    .btn-donate i {
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    
+    .btn-donate:hover i {
+      transform: scale(1.1);
+    }
+    
+    /* Menu mobile (caché par défaut) */
+    .mobile-menu-btn {
+      display: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
+    }
+    
+    .mobile-menu-btn:hover {
+      transform: rotate(90deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+    }
+    
+    /* Menu mobile overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(26, 46, 53, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .mobile-nav-links {
+      list-style: none;
+      text-align: center;
+    }
+    
+    .mobile-nav-links li {
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active .mobile-nav-links li {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(0.1s * var(--i));
+    }
+    
+    .mobile-nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 40px;
+      border-radius: 50px;
       transition: var(--transition);
       position: relative;
-      padding: 5px 0;
+      overflow: hidden;
     }
     
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-    
-    .nav-links a::after {
+    .mobile-nav-links a::before {
       content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .mobile-nav-links a:hover::before {
+      width: 100%;
+    }
+    
+    .mobile-nav-links a i {
+      font-size: 1.5rem;
+    }
+    
+    .mobile-nav-links a.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+    }
+    
+    .close-mobile-menu {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .close-mobile-menu:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .mobile-donate-btn {
+      margin-top: 40px;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      text-decoration: none;
+    }
+    
+    .mobile-overlay.active .mobile-donate-btn {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+    
+    .mobile-donate-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 126, 54, 0.4);
+    }
+    
+    /* Indicateur de scroll */
+    .scroll-indicator {
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--primary);
-      transition: var(--transition);
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      transition: width 0.3s ease;
     }
     
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
-    .nav-links a.active {
-      color: var(--primary);
-    }
-    
-    .nav-links a.active::after {
-      width: 100%;
-    }
-    
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--dark);
-      cursor: pointer;
-    }
-    
-    /* Hero Section */
+    /* ===== HERO SECTION ===== */
     .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("assets/images/reboisements/3.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: var(--white);
-      padding: 160px 0 100px;
+      padding: 180px 0 120px;
       text-align: center;
+      margin-top: -80px;
       position: relative;
-      overflow: hidden;
     }
     
     .hero::before {
@@ -178,12 +434,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTIwMCA0MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAzIj48cGF0aCBkPSJNMCwyMDBMMTIwLDEwMEwyNDAsMzAwTDM2MCwxMDBNNDgwLDMwMEw2MDAsMTAwTDcyMCwzMDBMODQwLDEwMEw5NjAsMzAwTDEwODAsMTAwTDEyMDAsMzAwVjQwMEgwVjIwMFoiLz48L2c+PC9zdmc+');
-      opacity: 0.1;
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.2) 0%, rgba(255, 126, 54, 0.1) 100%);
     }
     
     .hero-content {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -192,18 +447,33 @@
     .hero h1 {
       font-size: 3.5rem;
       margin-bottom: 1.5rem;
-      color: var(--white);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.8s ease;
     }
     
     .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
       opacity: 0.9;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.2s ease;
     }
     
     .btn {
-      display: inline-block;
-      padding: 12px 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 35px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
@@ -211,33 +481,44 @@
       border: none;
       cursor: pointer;
       font-size: 1rem;
+      gap: 10px;
     }
     
     .btn-primary {
-      background-color: var(--white);
-      color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.3);
     }
     
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(46, 139, 87, 0.4);
     }
     
     .btn-secondary {
-      background-color: transparent;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       color: var(--white);
-      border: 2px solid var(--white);
-      margin-left: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
     }
     
     .btn-secondary:hover {
-      background-color: var(--white);
-      color: var(--primary);
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--white);
+      transform: translateY(-5px);
     }
     
-    /* Section Styles */
+    /* ===== SECTION STYLES ===== */
     .section {
       padding: 100px 0;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .section-title {
@@ -246,21 +527,22 @@
     }
     
     .section-title h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--dark);
       position: relative;
       display: inline-block;
+      padding-bottom: 15px;
     }
     
     .section-title h2::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
       border-radius: 2px;
     }
     
@@ -268,9 +550,10 @@
       max-width: 700px;
       margin: 1.5rem auto 0;
       color: var(--gray);
+      font-size: 1.1rem;
     }
     
-    /* About Section */
+    /* ===== ABOUT SECTION ===== */
     .about {
       background-color: var(--light);
     }
@@ -283,19 +566,52 @@
     }
     
     .about-text h3 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 1.5rem;
+      color: var(--dark);
     }
     
     .about-text p {
       margin-bottom: 1.5rem;
       color: var(--gray);
+      font-size: 1.05rem;
+    }
+    
+    .values-list {
+      list-style: none;
+      margin: 25px 0;
+    }
+    
+    .values-list li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .values-list i {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-top: 3px;
+      flex-shrink: 0;
     }
     
     .about-image {
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3));
+      z-index: 1;
     }
     
     .about-image img {
@@ -309,14 +625,63 @@
       transform: scale(1.05);
     }
     
-    /* President Section */
+    /* ===== VALUES SECTION ===== */
+    .values {
+      background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+    }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .value-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-top: 4px solid var(--primary);
+    }
+    
+    .value-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .value-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--white);
+      font-size: 1.8rem;
+    }
+    
+    .value-card h3 {
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+    
+    .value-card p {
+      color: var(--gray);
+    }
+    
+    /* ===== PRESIDENT SECTION ===== */
     .president-card {
-      background-color: var(--white);
+      background: linear-gradient(135deg, var(--white) 0%, var(--light) 100%);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
       max-width: 900px;
       margin: 0 auto;
+      border-left: 5px solid var(--primary);
     }
     
     .president-content {
@@ -333,6 +698,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .president-card:hover .president-image img {
+      transform: scale(1.05);
     }
     
     .president-text {
@@ -342,206 +712,119 @@
     .president-text h3 {
       color: var(--primary);
       margin-bottom: 0.5rem;
+      font-size: 1.8rem;
     }
     
     .president-text .position {
       color: var(--gray);
       margin-bottom: 1.5rem;
       font-style: italic;
+      font-size: 1.1rem;
     }
     
     .president-text p {
       margin-bottom: 1.5rem;
       color: var(--gray);
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
     
     .signature {
       margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
       font-style: italic;
+      color: var(--dark);
     }
     
-    /* Projects Section */
-    .projects {
-      background-color: var(--light);
-    }
-    
-    .projects-filter {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-    
-    .filter-btn {
-      background: none;
-      border: none;
-      padding: 8px 20px;
-      margin: 0 5px 10px;
-      border-radius: 50px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    
-    .filter-btn.active {
-      background-color: var(--primary);
-      color: var(--white);
-    }
-    
-    .filter-btn:not(.active):hover {
-      background-color: rgba(46, 139, 87, 0.1);
-    }
-    
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 30px;
-    }
-    
-    .project-card {
-      background-color: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-    
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-    
-    .project-image {
-      height: 200px;
-      overflow: hidden;
-    }
-    
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-    
-    .project-card:hover .project-image img {
-      transform: scale(1.1);
-    }
-    
-    .project-content {
-      padding: 25px;
-    }
-    
-    .project-category {
-      display: inline-block;
-      background-color: var(--primary-light);
-      color: var(--primary);
-      padding: 5px 12px;
-      border-radius: 50px;
-      font-size: 0.8rem;
+    .signature p:first-child {
       font-weight: 600;
-      margin-bottom: 15px;
-    }
-    
-    .project-title {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-    
-    .project-description {
-      color: var(--gray);
-      margin-bottom: 20px;
-    }
-    
-    .project-status {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .status-badge {
-      padding: 5px 12px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    
-    .status-ongoing {
-      background-color: #E8F5E9;
       color: var(--primary);
     }
     
-    .status-upcoming {
-      background-color: #FFF3E0;
-      color: #FF9800;
-    }
-    
-    .status-planned {
-      background-color: #E3F2FD;
-      color: #2196F3;
-    }
-    
-    .project-link {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-    }
-    
-    .project-link i {
-      margin-left: 5px;
-      transition: var(--transition);
-    }
-    
-    .project-link:hover i {
-      transform: translateX(5px);
-    }
-    
-    /* Domains Section */
+    /* ===== DOMAINS SECTION ===== */
     .domains-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 30px;
     }
     
     .domain-card {
-      background-color: var(--white);
+      background: var(--white);
       border-radius: var(--radius);
       padding: 40px 30px;
       text-align: center;
       box-shadow: var(--shadow);
       transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
     }
     
     .domain-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
     }
     
     .domain-icon {
       width: 80px;
       height: 80px;
-      background-color: var(--primary-light);
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 25px;
-      color: var(--primary);
+      color: var(--white);
       font-size: 2rem;
     }
     
     .domain-card h3 {
       margin-bottom: 15px;
+      color: var(--dark);
     }
     
     .domain-card p {
       color: var(--gray);
       margin-bottom: 20px;
+      line-height: 1.6;
     }
     
-    /* Footer */
+    /* ===== PARTNERS SECTION ===== */
+    .partners {
+      background-color: var(--light);
+    }
+    
+    .partners-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .partner-item {
+      background: var(--white);
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+      min-width: 200px;
+      transition: var(--transition);
+    }
+    
+    .partner-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .partner-item i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    /* ===== FOOTER ===== */
     footer {
-      background-color: var(--dark);
+      background: linear-gradient(135deg, var(--dark) 0%, #0d1a22 100%);
       color: var(--white);
       padding: 80px 0 30px;
     }
@@ -554,7 +837,7 @@
     }
     
     .footer-column h3 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 25px;
       position: relative;
       padding-bottom: 10px;
@@ -567,7 +850,7 @@
       left: 0;
       width: 40px;
       height: 3px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
     }
     
     .footer-links {
@@ -582,6 +865,9 @@
       color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
       transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .footer-links a:hover {
@@ -602,10 +888,13 @@
     .contact-info i {
       margin-right: 10px;
       color: var(--primary);
+      font-size: 1.1rem;
+      margin-top: 3px;
     }
     
     .social-links {
       display: flex;
+      gap: 10px;
       margin-top: 20px;
     }
     
@@ -613,14 +902,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      margin-right: 10px;
       color: var(--white);
       text-decoration: none;
       transition: var(--transition);
+      font-size: 1.2rem;
     }
     
     .social-links a:hover {
@@ -636,10 +925,78 @@
       font-size: 0.9rem;
     }
     
-    /* Responsive Design */
-    @media (max-width: 992px) {
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .nav-main {
+        gap: 25px;
+      }
+      
+      .nav-links {
+        gap: 2px;
+      }
+      
+      .nav-link {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-donate {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+      
       .hero h1 {
-        font-size: 2.8rem;
+        font-size: 3rem;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .btn-donate {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .logo-main {
+        font-size: 1.6rem;
+      }
+      
+      .logo-img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .logo-img img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
       }
       
       .about-content {
@@ -654,39 +1011,9 @@
       .president-image {
         height: 300px;
       }
-    }
-    
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
       
-      .nav-links.active {
-        display: flex;
-      }
-      
-      .nav-links li {
-        margin: 10px 0;
-      }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
-      .hero {
-        padding: 140px 0 80px;
-      }
-      
-      .hero h1 {
-        font-size: 2.2rem;
+      .domains-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       }
       
       .section {
@@ -694,93 +1021,324 @@
       }
       
       .section-title h2 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       
-      .btn-secondary {
-        margin-left: 0;
-        margin-top: 15px;
-        display: block;
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding: 150px 0 80px;
+        background-attachment: scroll;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .domain-card, .value-card {
+        padding: 30px 20px;
       }
     }
     
     @media (max-width: 576px) {
-      .projects-grid {
+      .logo-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .logo-main {
+        font-size: 1.4rem;
+      }
+      
+      .logo-sub {
+        font-size: 0.7rem;
+      }
+      
+      .logo-img {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .logo-img img {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .mobile-menu-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+      
+      .mobile-nav-links a {
+        font-size: 1.5rem;
+        padding: 12px 30px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .domains-grid {
         grid-template-columns: 1fr;
       }
       
       .president-text {
         padding: 25px;
       }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Barre de Navigation Revue -->
   <header id="header">
     <div class="container">
       <nav class="navbar">
-        <a href="index.html" class="logo">
-          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        <!-- Logo -->
+        <a href="index.html" class="logo-container">
+          <div class="logo-img">
+            <img src="./assets/logo_adess.png" alt="ADE3S Logo">
+          </div>
         </a>
         
+        <!-- Navigation Desktop -->
+        <div class="nav-main">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link active">
+                <i class="bi bi-house-door"></i>
+                <span>Accueil</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">
+                <i class="bi bi-info-circle"></i>
+                <span>À propos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="actions.html" class="nav-link">
+                <i class="bi bi-activity"></i>
+                <span>Nos Actions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="projects.html" class="nav-link">
+                <i class="bi bi-folder"></i>
+                <span>Projets</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="blog.html" class="nav-link">
+                <i class="bi bi-newspaper"></i>
+                <span>Actualités</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </li>
+          </ul>
+          
+          <!-- Bouton d'action -->
+          <div class="nav-action">
+            <a href="donate.html" class="btn-donate">
+              <i class="bi bi-heart-fill"></i>
+              <span>Faire un don</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Bouton Menu Mobile -->
         <button class="mobile-menu-btn" id="mobileMenuBtn">
           <i class="bi bi-list"></i>
         </button>
-        
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="active">Accueil</a></li>
-          <li><a href="about.html">À propos</a></li>
-          <li><a href="actions.html">Nos Actions</a></li>
-          <li><a href="projects.html">Projets</a></li>
-          <li><a href="blog.html">Actualités</a></li>
-          <li><a href="donate.html">Don / Partenariat</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
       </nav>
+      
+      <!-- Indicateur de scroll -->
+      <div class="scroll-indicator" id="scrollIndicator"></div>
+    </div>
+    
+    <!-- Overlay Menu Mobile -->
+    <div class="mobile-overlay" id="mobileOverlay">
+      <button class="close-mobile-menu" id="closeMobileMenu">
+        <i class="bi bi-x"></i>
+      </button>
+      
+      <ul class="mobile-nav-links">
+        <li style="--i: 0;">
+          <a href="index.html" class="active">
+            <i class="bi bi-house-door"></i>
+            <span>Accueil</span>
+          </a>
+        </li>
+        <li style="--i: 1;">
+          <a href="about.html">
+            <i class="bi bi-info-circle"></i>
+            <span>À propos</span>
+          </a>
+        </li>
+        <li style="--i: 2;">
+          <a href="actions.html">
+            <i class="bi bi-activity"></i>
+            <span>Nos Actions</span>
+          </a>
+        </li>
+        <li style="--i: 3;">
+          <a href="projects.html">
+            <i class="bi bi-folder"></i>
+            <span>Projets</span>
+          </a>
+        </li>
+        <li style="--i: 4;">
+          <a href="blog.html">
+            <i class="bi bi-newspaper"></i>
+            <span>Actualités</span>
+          </a>
+        </li>
+        <li style="--i: 5;">
+          <a href="contact.html">
+            <i class="bi bi-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <a href="donate.html" class="mobile-donate-btn">
+        <i class="bi bi-heart-fill"></i>
+        <span>Faire un don</span>
+      </a>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Association pour le Développement Environnementale, Sanitaire et Social</h1>
-        <p>Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages</p>
-        <div>
-          <a href="actions.html" class="btn btn-primary">Découvrir nos actions</a>
-          <a href="donate.html" class="btn btn-secondary">Nous soutenir</a>
+        <h1>Association pour le Développement Environnemental, Sanitaire et Social de Saint-Louis</h1>
+        <p>Notre mission : faire de Saint-Louis un modèle de développement durable, résilient et inclusif en répondant aux défis environnementaux, sanitaires et sociaux.</p>
+        <div class="hero-buttons">
+          <a href="#about" class="btn btn-primary">
+            <i class="bi bi-arrow-down-circle"></i> Découvrir notre mission
+          </a>
+          <a href="donate.html" class="btn btn-secondary">
+            <i class="bi bi-heart-fill"></i> Nous soutenir
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section class="section about">
+  <section class="section about" id="about">
     <div class="container">
       <div class="section-title">
         <h2>Qui sommes-nous</h2>
-        <p>Découvrez notre mission, notre vision et notre engagement pour le développement durable de notre région</p>
+        <p>L'Association pour le Développement Environnemental, Sanitaire et Social de Saint-Louis (ADE3S) agit comme catalyseur du changement pour une communauté durable</p>
       </div>
       
       <div class="about-content">
         <div class="about-text">
-          <h3>Notre engagement pour un avenir meilleur</h3>
-          <p>L'Association pour le Développement Économique, Sanitaire et Social (ADE3S) est une organisation à but non lucratif fondée en 2019 à Saint-Louis, Sénégal.</p>
-          <p>Notre mission est de contribuer au développement durable de la région de Saint-Louis et de Gandon à travers des actions concrètes dans les domaines de l'environnement, de la santé, du social et de l'économie.</p>
-          <p>Nous travaillons en étroite collaboration avec les communautés locales pour identifier leurs besoins et mettre en place des solutions adaptées et durables.</p>
-          <a href="about.html" class="btn btn-primary">En savoir plus</a>
+          <h3>Notre Vision</h3>
+          <p>Construire une communauté écologiquement responsable, sanitairement stable et socialement autonome, où chaque citoyen contribue activement à la préservation de son environnement et au bien-être collectif.</p>
+          
+          <h3>Notre Mission</h3>
+          <ul class="values-list">
+            <li><i class="bi bi-check-circle"></i> Promouvoir la culture environnementale et les comportements écoresponsables</li>
+            <li><i class="bi bi-check-circle"></i> Renforcer la prévention sanitaire, l'hygiène et la sécurité dans les milieux de vie et de travail</li>
+            <li><i class="bi bi-check-circle"></i> Améliorer le bien-être social, l'inclusion et l'autonomisation des populations</li>
+            <li><i class="bi bi-check-circle"></i> Stimuler l'engagement citoyen et le développement communautaire</li>
+            <li><i class="bi bi-check-circle"></i> Créer des partenariats stratégiques durables pour amplifier l'impact de nos initiatives</li>
+          </ul>
+          
+          <a href="about.html" class="btn btn-primary">
+            <i class="bi bi-info-circle"></i> En savoir plus sur nous
+          </a>
         </div>
         
         <div class="about-image">
-          <img src="./assets/plantation.jpg" alt="Équipe ADE3S">
+          <img src="./assets/plantation.jpg" alt="Action de reboisement ADE3S">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- President Section -->
-  <section class="section">
+  <!-- Valeurs Section -->
+  <section class="section values" id="values">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos Valeurs Fondamentales</h2>
+        <p>Les principes qui guident toutes nos actions et décisions</p>
+      </div>
+      
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="bi bi-globe"></i>
+          </div>
+          <h3>Responsabilité environnementale</h3>
+          <p>Protection des ressources naturelles et lutte contre la pollution pour préserver notre planète.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <h3>Solidarité et cohésion sociale</h3>
+          <p>Mettre les communautés au cœur des actions de développement durable.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="bi bi-eye"></i>
+          </div>
+          <h3>Transparence et bonne gouvernance</h3>
+          <p>Gestion sérieuse, participation citoyenne et redevabilité dans toutes nos actions.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="bi bi-lightbulb"></i>
+          </div>
+          <h3>Innovation et durabilité</h3>
+          <p>Promouvoir des solutions locales, adaptées et reproductibles pour un impact durable.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="bi bi-handshake"></i>
+          </div>
+          <h3>Partenariat & Collaboration</h3>
+          <p>ODD17 : nous croyons aux synergies entre État, collectivités, ONG, entreprises et citoyens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Président Section -->
+  <section class="section" id="president">
     <div class="container">
       <div class="section-title">
         <h2>Mot du Président</h2>
@@ -790,15 +1348,16 @@
       <div class="president-card">
         <div class="president-content">
           <div class="president-image">
-            <img src="./assets/tof-president.jpeg" alt="Président ADE3S">
+            <img src="./assets/tof-president.jpeg" alt="Dr Ousmane Fall - Président ADE3S">
           </div>
           
           <div class="president-text">
             <h3>Dr Ousmane Fall</h3>
             <p class="position">Président Fondateur d'ADE3S</p>
             <p>"Chers partenaires, membres et amis de l'ADE3S,</p>
-            <p>Depuis notre création, nous nous engageons sans relâche pour le développement durable de notre région. Chaque arbre planté, chaque consultation médicale offerte, chaque famille soutenue représente une étape vers un avenir meilleur pour nos communautés.</p>
-            <p>Je suis fier du chemin parcouru et reconnaissant envers tous ceux qui nous soutiennent dans cette mission. Ensemble, continuons à œuvrer pour un développement équilibré qui respecte notre environnement tout en améliorant les conditions de vie de nos concitoyens."</p>
+            <p>Face aux défis majeurs de notre région – dégradation environnementale, vulnérabilité sanitaire, manque d'opportunités pour les jeunes et les femmes, érosion côtière et pression sur les ressources – notre association agit comme un catalyseur du changement.</p>
+            <p>Nous mobilisons les populations, collectivités locales, entreprises et établissements scolaires autour d'une vision commune : faire de Saint-Louis un modèle de développement durable, résilient et inclusif.</p>
+            <p>Chaque action, chaque projet, chaque partenariat nous rapproche de notre objectif. Merci de faire partie de cette transformation."</p>
             <div class="signature">
               <p>Dr Ousmane Fall</p>
               <p>Président d'ADE3S</p>
@@ -809,116 +1368,98 @@
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section class="section projects">
+  <!-- Domaines d'action Section -->
+  <section class="section" id="domains">
     <div class="container">
       <div class="section-title">
-        <h2>Nos Actions & Projets</h2>
-        <p>Découvrez nos initiatives en cours et à venir pour le développement de notre région</p>
-      </div>
-      
-      <div class="projects-filter">
-        <button class="filter-btn active" data-filter="all">Tous les projets</button>
-        <button class="filter-btn" data-filter="environment">Environnement</button>
-        <button class="filter-btn" data-filter="health">Santé</button>
-        <button class="filter-btn" data-filter="social">Social</button>
-        <button class="filter-btn" data-filter="economy">Économie</button>
-      </div>
-      
-      <div class="projects-grid">
-        <!-- Projet 1 -->
-        <div class="project-card" data-category="environment">
-          <div class="project-image">
-            <img src="./assets/plan1.jpg" alt="Campagne de Reboisement">
-          </div>
-          <div class="project-content">
-            <span class="project-category">Environnement</span>
-            <h3 class="project-title">Campagne de Reboisement</h3>
-            <p class="project-description">Plantation de 3000 arbres à Gandon et ses villages pour lutter contre la désertification.</p>
-            <div class="project-status">
-              <span class="status-badge status-ongoing">En cours</span>
-              <a href="actions.html" class="project-link">Voir plus <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Projet 2 -->
-        <div class="project-card" data-category="health">
-          <div class="project-image">
-            <img src="./assets/don0.jpg" alt="Consultations Médicales Gratuites">
-          </div>
-          <div class="project-content">
-            <span class="project-category">Santé</span>
-            <h3 class="project-title">Consultations Médicales Gratuites</h3>
-            <p class="project-description">Organisation de consultations gratuites et distribution de médicaments à Poundioum.</p>
-            <div class="project-status">
-              <span class="status-badge status-ongoing">En cours</span>
-              <a href="actions.html" class="project-link">Voir plus <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Projet 3 -->
-        <div class="project-card" data-category="economy">
-          <div class="project-image">
-            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Soutien à l'Agriculture Locale">
-          </div>
-          <div class="project-content">
-            <span class="project-category">Environnementale</span>
-            <h3 class="project-title">Soutien à l'Agriculture Locale</h3>
-            <p class="project-description">Formation et équipement des agriculteurs locaux pour améliorer leur productivité.</p>
-            <div class="project-status">
-              <span class="status-badge status-upcoming">À venir</span>
-              <a href="actions.html" class="project-link">Voir plus <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div style="text-align: center; margin-top: 50px;">
-        <a href="projects.html" class="btn btn-primary">Voir tous nos projets</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Domains Section -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Nos Domaines d'Action</h2>
-        <p>Les quatre piliers de notre engagement pour le développement durable</p>
+        <h2>Nos Dimensions Stratégiques</h2>
+        <p>Les trois piliers de notre action pour un développement intégré et durable</p>
       </div>
       
       <div class="domains-grid">
-        <!-- Domaine 1 -->
+        <!-- Dimension Environnementale -->
         <div class="domain-card">
           <div class="domain-icon">
             <i class="bi bi-tree"></i>
           </div>
-          <h3>Environnement</h3>
-          <p>Plantations d'arbres, sensibilisations, lutte contre le changement climatique et préservation des écosystèmes.</p>
-          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+          <h3>Dimension Environnementale</h3>
+          <p>Au cœur de notre mission : reboisement, protection de la flore, lutte contre l'érosion et la déforestation, sensibilisation climatique, gestion des déchets, agroécologie et éducation environnementale dans les écoles.</p>
+          <a href="actions.html#environment" class="btn btn-primary">
+            <i class="bi bi-arrow-right-circle"></i> Voir nos actions
+          </a>
         </div>
         
-        <!-- Domaine 2 -->
+        <!-- Dimension Sanitaire -->
         <div class="domain-card">
           <div class="domain-icon">
             <i class="bi bi-heart-pulse"></i>
           </div>
-          <h3>Santé</h3>
-          <p>Dons de médicaments, matériels, consultations gratuites et campagnes de sensibilisation sanitaire.</p>
-          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+          <h3>Dimension Sanitaire</h3>
+          <p>Promotion d'un cadre de vie sain : sensibilisation sur les maladies, campagnes de consultations gratuites, formation en santé et sécurité au travail, nettoyage communautaire et appui aux centres de santé.</p>
+          <a href="actions.html#health" class="btn btn-primary">
+            <i class="bi bi-arrow-right-circle"></i> Voir nos actions
+          </a>
         </div>
 
-        <!-- Domaine 3 -->
+        <!-- Dimension Sociale -->
         <div class="domain-card">
           <div class="domain-icon">
-            <i class="bi bi-graph-up"></i>
+            <i class="bi bi-people"></i>
           </div>
-          <h3>Sociale</h3>
-          <p>Appui aux initiatives locales, création d'emplois et développement économique durable.</p>
-          <a href="actions.html" class="btn btn-primary">Découvrir</a>
+          <h3>Dimension Sociale</h3>
+          <p>Renforcement du tissu social : formation et insertion des jeunes dans les métiers verts, accompagnement des femmes pour leur autonomisation, appui aux initiatives communautaires et activités de cohésion sociale.</p>
+          <a href="actions.html#social" class="btn btn-primary">
+            <i class="bi bi-arrow-right-circle"></i> Voir nos actions
+          </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partenaires Section -->
+  <section class="section partners">
+    <div class="container">
+      <div class="section-title">
+        <h2>Partenariats Recherchés</h2>
+        <p>Pour renforcer notre impact, nous souhaitons collaborer avec :</p>
+      </div>
+      
+      <div class="partners-list">
+        <div class="partner-item">
+          <i class="bi bi-globe"></i>
+          <h4>ONG Environnementales</h4>
+        </div>
+        
+        <div class="partner-item">
+          <i class="bi bi-building"></i>
+          <h4>Bailleurs Internationaux</h4>
+        </div>
+        
+        <div class="partner-item">
+          <i class="bi bi-bank"></i>
+          <h4>Institutions Publiques</h4>
+        </div>
+        
+        <div class="partner-item">
+          <i class="bi bi-briefcase"></i>
+          <h4>Entreprises (RSE)</h4>
+        </div>
+        
+        <div class="partner-item">
+          <i class="bi bi-people"></i>
+          <h4>Associations Locales</h4>
+        </div>
+        
+        <div class="partner-item">
+          <i class="bi bi-graph-up"></i>
+          <h4>Programmes de Développement</h4>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 50px;">
+        <a href="contact.html" class="btn btn-primary">
+          <i class="bi bi-handshake"></i> Devenir Partenaire
+        </a>
       </div>
     </div>
   </section>
@@ -929,35 +1470,34 @@
       <div class="footer-content">
         <div class="footer-column">
           <h3>ADE3S</h3>
-          <p>Association pour le Développement Environnementale, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
+          <p>Association pour le Développement Environnemental, Sanitaire et Social de Saint-Louis. Catalyseur du changement pour une communauté durable, résiliente et inclusive.</p>
           <div class="social-links">
             <a href="#"><i class="bi bi-facebook"></i></a>
             <a href="#"><i class="bi bi-twitter"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
             <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
         
         <div class="footer-column">
-          <h3>Liens rapides</h3>
+          <h3>Navigation</h3>
           <ul class="footer-links">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="actions.html">Nos Actions</a></li>
-            <li><a href="projects.html">Projets</a></li>
-            <li><a href="blog.html">Actualités</a></li>
-            <li><a href="donate.html">Don / Partenariat</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html"><i class="bi bi-chevron-right"></i> Accueil</a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right"></i> À propos</a></li>
+            <li><a href="actions.html"><i class="bi bi-chevron-right"></i> Nos Actions</a></li>
+            <li><a href="projects.html"><i class="bi bi-chevron-right"></i> Projets</a></li>
+            <li><a href="blog.html"><i class="bi bi-chevron-right"></i> Actualités</a></li>
           </ul>
         </div>
         
         <div class="footer-column">
-          <h3>Nos domaines</h3>
+          <h3>Engagement</h3>
           <ul class="footer-links">
-            <li><a href="actions.html#env">Environnement</a></li>
-            <li><a href="actions.html#sante">Santé</a></li>
-            <li><a href="actions.html#social">Social</a></li>
-            <li><a href="donate.html">Partenariats</a></li>
+            <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Faire un don</a></li>
+            <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Devenir partenaire</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right"></i> Devenir bénévole</a></li>
+            <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Nous contacter</a></li>
           </ul>
         </div>
         
@@ -967,57 +1507,136 @@
             <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
             <li><i class="bi bi-telephone"></i> +221 533 57 20</li>
             <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
-            <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
+            <li><i class="bi bi-clock"></i> Lundi - Vendredi: 9h00 - 17h00</li>
           </ul>
         </div>
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2023 ADE3S. Tous droits réservés.</p>
+        <p>&copy; 2023 ADE3S - Association pour le Développement Environnemental, Sanitaire et Social de Saint-Louis. Tous droits réservés.</p>
       </div>
     </div>
   </footer>
 
+  <!-- JavaScript -->
   <script>
-    // Menu mobile
+    // Initialisation des éléments DOM
+    const header = document.getElementById('header');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-links a');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const sections = document.querySelectorAll('.section');
     
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('header');
-      if (window.scrollY > 100) {
+    // Gestion du scroll
+    const handleScroll = () => {
+      // Effet sur le header
+      if (window.scrollY > 50) {
         header.classList.add('header-scrolled');
       } else {
         header.classList.remove('header-scrolled');
       }
+      
+      // Indicateur de scroll
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      scrollIndicator.style.width = scrolled + "%";
+      
+      // Animation des sections
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Menu mobile
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-x"></i>';
     });
     
-    // Filtrage des projets
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+    closeMobileMenu.addEventListener('click', () => {
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+    });
     
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Retirer la classe active de tous les boutons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        // Ajouter la classe active au bouton cliqué
-        btn.classList.add('active');
+    // Fermer le menu en cliquant sur un lien
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
         
-        const filter = btn.getAttribute('data-filter');
-        
-        projectCards.forEach(card => {
-          if (filter === 'all' || card.getAttribute('data-category') === filter) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+        // Mettre à jour l'état actif
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
       });
+    });
+    
+    // Fermer le menu en cliquant à l'extérieur
+    mobileOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileOverlay) {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+      }
+    });
+    
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Fermer le menu mobile si ouvert
+          mobileOverlay.classList.remove('active');
+          document.body.style.overflow = 'auto';
+          mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+          
+          // Smooth scroll vers la section
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Observer pour les animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    // Observer les sections
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+    
+    // Initialiser l'indicateur de scroll
+    scrollIndicator.style.width = '0%';
+    
+    // Initialiser l'état visible pour les sections dans le viewport
+    document.addEventListener('DOMContentLoaded', () => {
+      handleScroll(); // Vérifier l'état initial
     });
   </script>
 </body>

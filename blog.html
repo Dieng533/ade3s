@@ -6,29 +6,33 @@
   <title>Actualités & Blog – ADE3S</title>
   <meta name="description" content="Découvrez les dernières actualités et articles de l'ADE3S sur nos actions environnementales, sanitaires, sociales et économiques.">
   
-  <!-- Polices Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="./assets/logo_adess.png" type="image/x-icon">
   
-  <!-- CSS personnalisé -->
   <style>
     :root {
       --primary: #2E8B57;
       --primary-dark: #1F6B47;
       --primary-light: #E8F5E9;
       --secondary: #FF7E36;
+      --accent: #3A86FF;
       --dark: #1A2E35;
       --light: #F8F9FA;
       --gray: #6C757D;
       --white: #FFFFFF;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
       --radius: 12px;
-      --transition: all 0.3s ease;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
@@ -43,6 +47,8 @@
       color: var(--dark);
       background-color: var(--white);
       overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-top: 80px; /* Compense la navbar fixe */
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -54,118 +60,367 @@
     
     .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
     }
     
-    /* Header et Navigation */
+    /* ===== BARRE DE NAVIGATION AMÉLIORÉE ===== */
     header {
-      background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 1000;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
       transition: var(--transition);
     }
     
     .header-scrolled {
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      border-bottom-color: rgba(46, 139, 87, 0.1);
     }
     
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 0;
+      padding: 0.8rem 0;
+      position: relative;
     }
     
-    .logo {
+    /* Logo Section */
+    .logo-container {
       display: flex;
       align-items: center;
+      gap: 15px;
       text-decoration: none;
-      color: var(--dark);
-      font-weight: 700;
-      font-size: 1.5rem;
       transition: var(--transition);
     }
     
-    .logo img {
-      height: 50px;
-      width: auto;
-      margin-right: 10px;
+    .logo-container:hover {
+      transform: translateY(-2px);
+    }
+    
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.2);
       transition: var(--transition);
     }
     
-    /* Logo adaptatif */
-    .navbar-scrolled .logo img {
+    .logo-container:hover .logo-img {
+      transform: rotate(-5deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.3);
+    }
+    
+    .logo-img img {
+      width: 40px;
       height: 40px;
+      filter: brightness(0) invert(1);
     }
     
-    .navbar-scrolled .logo {
-      font-size: 1.3rem;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    
+    .logo-sub {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    /* Navigation principale */
+    .nav-main {
+      display: flex;
+      align-items: center;
+      gap: 40px;
     }
     
     .nav-links {
       display: flex;
       list-style: none;
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
     
-    .nav-links li {
-      margin-left: 2rem;
+    .nav-item {
+      position: relative;
     }
     
-    .nav-links a {
+    .nav-link {
       text-decoration: none;
-      color: var(--dark);
+      color: var(--gray);
       font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .nav-link i {
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(46, 139, 87, 0.05);
+    }
+    
+    .nav-link:hover i {
+      transform: scale(1.1);
+    }
+    
+    .nav-link.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+    }
+    
+    .nav-link.active i {
+      color: var(--white);
+    }
+    
+    /* Bouton action spécial */
+    .nav-action {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .btn-donate {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(255, 126, 54, 0.3);
+    }
+    
+    .btn-donate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 126, 54, 0.4);
+      background: linear-gradient(135deg, #FF6B35, #FF5722);
+    }
+    
+    .btn-donate i {
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    
+    .btn-donate:hover i {
+      transform: scale(1.1);
+    }
+    
+    /* Menu mobile (caché par défaut) */
+    .mobile-menu-btn {
+      display: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
+    }
+    
+    .mobile-menu-btn:hover {
+      transform: rotate(90deg);
+      box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+    }
+    
+    /* Menu mobile overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(26, 46, 53, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .mobile-nav-links {
+      list-style: none;
+      text-align: center;
+    }
+    
+    .mobile-nav-links li {
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    
+    .mobile-overlay.active .mobile-nav-links li {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(0.1s * var(--i));
+    }
+    
+    .mobile-nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 40px;
+      border-radius: 50px;
       transition: var(--transition);
       position: relative;
-      padding: 5px 0;
+      overflow: hidden;
     }
     
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-    
-    .nav-links a::after {
+    .mobile-nav-links a::before {
       content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .mobile-nav-links a:hover::before {
+      width: 100%;
+    }
+    
+    .mobile-nav-links a i {
+      font-size: 1.5rem;
+    }
+    
+    .mobile-nav-links a.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+    }
+    
+    .close-mobile-menu {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .close-mobile-menu:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .mobile-donate-btn {
+      margin-top: 40px;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, var(--secondary), #FF6B35);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      text-decoration: none;
+    }
+    
+    .mobile-overlay.active .mobile-donate-btn {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+    
+    .mobile-donate-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 126, 54, 0.4);
+    }
+    
+    /* Indicateur de scroll */
+    .scroll-indicator {
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--primary);
-      transition: var(--transition);
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      transition: width 0.3s ease;
     }
     
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
-    .nav-links a.active {
-      color: var(--primary);
-    }
-    
-    .nav-links a.active::after {
-      width: 100%;
-    }
-    
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--dark);
-      cursor: pointer;
-    }
-    
-    /* Hero Section */
+    /* ===== HERO SECTION ===== */
     .blog-hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: var(--white);
-      padding: 160px 0 80px;
+      padding: 140px 0 80px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -183,27 +438,28 @@
     }
     
     .blog-hero-content {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
     
     .blog-hero h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       margin-bottom: 1.5rem;
       color: var(--white);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
     
     .blog-hero p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 2rem;
       opacity: 0.9;
     }
     
-    /* Section Styles */
+    /* ===== SECTION STYLES ===== */
     .section {
-      padding: 80px 0;
+      padding: 100px 0;
     }
     
     .section-title {
@@ -212,46 +468,41 @@
     }
     
     .section-title h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--dark);
       position: relative;
       display: inline-block;
+      padding-bottom: 15px;
     }
     
     .section-title h2::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
       border-radius: 2px;
     }
     
-    .section-title p {
-      max-width: 700px;
-      margin: 1.5rem auto 0;
-      color: var(--gray);
-    }
-    
-    /* Blog Content */
+    /* ===== BLOG CONTENT ===== */
     .blog-container {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 40px;
+      gap: 50px;
     }
     
     /* Articles Grid */
     .articles-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 30px;
+      gap: 35px;
     }
     
     .article-card {
-      background-color: var(--white);
+      background: var(--white);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
@@ -259,15 +510,23 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .article-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     
     .article-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-hover);
     }
     
     .article-image {
-      height: 200px;
+      height: 220px;
       overflow: hidden;
       position: relative;
     }
@@ -285,19 +544,20 @@
     
     .article-category {
       position: absolute;
-      top: 15px;
-      left: 15px;
-      background-color: var(--primary);
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
-      padding: 5px 12px;
+      padding: 8px 16px;
       border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
       z-index: 2;
+      box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
     }
     
     .article-content {
-      padding: 25px;
+      padding: 30px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -306,60 +566,72 @@
     .article-meta {
       display: flex;
       align-items: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       color: var(--gray);
       font-size: 0.9rem;
+      gap: 20px;
     }
     
     .article-meta i {
       margin-right: 5px;
-    }
-    
-    .article-meta span {
-      margin-right: 15px;
+      color: var(--primary);
     }
     
     .article-title {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
       line-height: 1.4;
+    }
+    
+    .article-title a {
+      color: var(--dark);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .article-title a:hover {
+      color: var(--primary);
     }
     
     .article-excerpt {
       color: var(--gray);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       flex-grow: 1;
+      line-height: 1.7;
     }
     
     .btn {
-      display: inline-block;
-      padding: 10px 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: var(--transition);
       border: none;
       cursor: pointer;
-      font-size: 0.9rem;
-      text-align: center;
+      font-size: 0.95rem;
+      gap: 8px;
     }
     
     .btn-primary {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
     }
     
     .btn-primary:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(46, 139, 87, 0.4);
+      color: var(--white);
     }
     
-    /* Sidebar */
+    /* ===== SIDEBAR ===== */
     .sidebar {
-      background-color: var(--light);
+      background: var(--light);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 35px;
       height: fit-content;
       position: sticky;
       top: 120px;
@@ -374,9 +646,9 @@
     }
     
     .sidebar-widget h3 {
-      font-size: 1.3rem;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
       border-bottom: 2px solid var(--primary-light);
       color: var(--dark);
     }
@@ -403,18 +675,21 @@
       transition: var(--transition);
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
     
     .categories-list a:hover {
       color: var(--primary);
+      padding-left: 5px;
     }
     
     .categories-list span {
-      background-color: var(--primary-light);
+      background: var(--primary-light);
       color: var(--primary);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
     
     .recent-posts-list {
@@ -423,8 +698,8 @@
     
     .recent-post {
       display: flex;
-      margin-bottom: 15px;
-      padding-bottom: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
     
@@ -435,8 +710,8 @@
     }
     
     .recent-post-image {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       border-radius: 8px;
       overflow: hidden;
       margin-right: 15px;
@@ -447,11 +722,16 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .recent-post:hover .recent-post-image img {
+      transform: scale(1.1);
     }
     
     .recent-post-content h4 {
       font-size: 1rem;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       line-height: 1.3;
     }
     
@@ -467,7 +747,10 @@
     
     .recent-post-content .post-date {
       color: var(--gray);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     
     .tags-list {
@@ -477,23 +760,24 @@
     }
     
     .tag {
-      background-color: var(--white);
+      background: var(--white);
       color: var(--gray);
-      padding: 5px 12px;
+      padding: 8px 16px;
       border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       text-decoration: none;
       transition: var(--transition);
       border: 1px solid rgba(0, 0, 0, 0.1);
     }
     
     .tag:hover {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
-      border-color: var(--primary);
+      border-color: transparent;
+      transform: translateY(-3px);
     }
     
-    /* Pagination */
+    /* ===== PAGINATION ===== */
     .pagination {
       display: flex;
       justify-content: center;
@@ -503,20 +787,17 @@
     .pagination-list {
       display: flex;
       list-style: none;
-    }
-    
-    .pagination-item {
-      margin: 0 5px;
+      gap: 10px;
     }
     
     .pagination-link {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
-      background-color: var(--light);
+      background: var(--light);
       color: var(--dark);
       text-decoration: none;
       font-weight: 600;
@@ -525,67 +806,81 @@
     
     .pagination-link:hover,
     .pagination-link.active {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
+      box-shadow: 0 6px 20px rgba(46, 139, 87, 0.3);
+      transform: translateY(-3px);
     }
     
-    /* Newsletter */
+    /* ===== NEWSLETTER ===== */
     .newsletter {
-      background-color: var(--primary-light);
+      background: linear-gradient(135deg, var(--primary-light), #f0f7f2);
       border-radius: var(--radius);
-      padding: 40px;
+      padding: 60px 40px;
       text-align: center;
       margin-top: 80px;
     }
     
     .newsletter h3 {
       color: var(--dark);
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      font-size: 2rem;
     }
     
     .newsletter p {
       color: var(--gray);
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      font-size: 1.1rem;
     }
     
     .newsletter-form {
       display: flex;
       max-width: 500px;
       margin: 0 auto;
+      gap: 0;
     }
     
     .newsletter-input {
       flex-grow: 1;
-      padding: 12px 20px;
-      border: 1px solid #ddd;
+      padding: 15px 25px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
       border-radius: 50px 0 0 50px;
       outline: none;
       font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .newsletter-input:focus {
+      border-color: var(--primary);
     }
     
     .newsletter-btn {
-      background-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: var(--white);
       border: none;
-      padding: 0 25px;
+      padding: 0 30px;
       border-radius: 0 50px 50px 0;
       cursor: pointer;
       font-weight: 600;
+      font-size: 1rem;
       transition: var(--transition);
     }
     
     .newsletter-btn:hover {
-      background-color: var(--primary-dark);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      transform: translateX(5px);
     }
     
-    /* Footer */
+    /* ===== FOOTER ===== */
     footer {
-      background-color: var(--dark);
+      background: linear-gradient(135deg, var(--dark) 0%, #0d1a22 100%);
       color: var(--white);
       padding: 80px 0 30px;
+      margin-top: 100px;
     }
     
     .footer-content {
@@ -596,7 +891,7 @@
     }
     
     .footer-column h3 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 25px;
       position: relative;
       padding-bottom: 10px;
@@ -609,7 +904,7 @@
       left: 0;
       width: 40px;
       height: 3px;
-      background-color: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
     }
     
     .footer-links {
@@ -624,6 +919,9 @@
       color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
       transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .footer-links a:hover {
@@ -644,10 +942,13 @@
     .contact-info i {
       margin-right: 10px;
       color: var(--primary);
+      font-size: 1.1rem;
+      margin-top: 3px;
     }
     
     .social-links {
       display: flex;
+      gap: 10px;
       margin-top: 20px;
     }
     
@@ -655,14 +956,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      margin-right: 10px;
       color: var(--white);
       text-decoration: none;
       transition: var(--transition);
+      font-size: 1.2rem;
     }
     
     .social-links a:hover {
@@ -678,10 +979,71 @@
       font-size: 0.9rem;
     }
     
-    /* Responsive Design */
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .nav-main {
+        gap: 25px;
+      }
+      
+      .nav-links {
+        gap: 2px;
+      }
+      
+      .nav-link {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-donate {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+      
+      .blog-hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+    
     @media (max-width: 992px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .btn-donate {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .logo-main {
+        font-size: 1.6rem;
+      }
+      
+      .logo-img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .logo-img img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .blog-hero h1 {
+        font-size: 2.4rem;
+      }
+      
+      .blog-hero p {
+        font-size: 1.1rem;
+      }
+      
       .blog-container {
         grid-template-columns: 1fr;
+        gap: 40px;
       }
       
       .sidebar {
@@ -689,38 +1051,14 @@
         margin-top: 40px;
       }
       
-      .blog-hero h1 {
-        font-size: 2.5rem;
+      .articles-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       }
     }
     
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--white);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-      
-      .nav-links.active {
-        display: flex;
-      }
-      
-      .nav-links li {
-        margin: 10px 0;
-      }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
       .blog-hero {
-        padding: 140px 0 60px;
+        padding: 120px 0 60px;
       }
       
       .blog-hero h1 {
@@ -728,62 +1066,230 @@
       }
       
       .section {
-        padding: 60px 0;
-      }
-      
-      .section-title h2 {
-        font-size: 2rem;
+        padding: 80px 0;
       }
       
       .articles-grid {
         grid-template-columns: 1fr;
       }
       
+      .article-image {
+        height: 200px;
+      }
+      
+      .article-content {
+        padding: 25px;
+      }
+      
       .newsletter-form {
         flex-direction: column;
+        gap: 15px;
       }
       
       .newsletter-input {
         border-radius: 50px;
-        margin-bottom: 10px;
       }
       
       .newsletter-btn {
         border-radius: 50px;
-        padding: 12px;
+        padding: 15px;
+      }
+      
+      .newsletter-btn:hover {
+        transform: translateY(-3px);
       }
     }
     
     @media (max-width: 576px) {
-      .article-card {
-        margin-bottom: 30px;
+      .logo-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .logo-main {
+        font-size: 1.4rem;
+      }
+      
+      .logo-sub {
+        font-size: 0.7rem;
+      }
+      
+      .logo-img {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .logo-img img {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .mobile-menu-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+      
+      .mobile-nav-links a {
+        font-size: 1.5rem;
+        padding: 12px 30px;
+      }
+      
+      .blog-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .blog-hero p {
+        font-size: 1rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      
+      .article-meta {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      
+      .newsletter {
+        padding: 40px 25px;
+      }
+      
+      .newsletter h3 {
+        font-size: 1.8rem;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Barre de Navigation Améliorée -->
   <header id="header">
     <div class="container">
       <nav class="navbar">
-        <a href="index.html" class="logo">
-          <img src="./assets/logo_adess.png" alt="logo ADE3S">
+        <!-- Logo -->
+        <a href="index.html" class="logo-container">
+          <div class="logo-img">
+            <img src="./assets/logo_adess.png" alt="ADE3S Logo">
+          </div>
         </a>
         
+        <!-- Navigation Desktop -->
+        <div class="nav-main">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">
+                <i class="bi bi-house-door"></i>
+                <span>Accueil</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link">
+                <i class="bi bi-info-circle"></i>
+                <span>À propos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="actions.html" class="nav-link">
+                <i class="bi bi-activity"></i>
+                <span>Nos Actions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="projects.html" class="nav-link">
+                <i class="bi bi-folder"></i>
+                <span>Projets</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="blog.html" class="nav-link active">
+                <i class="bi bi-newspaper"></i>
+                <span>Actualités</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </li>
+          </ul>
+          
+          <!-- Bouton d'action -->
+          <div class="nav-action">
+            <a href="donate.html" class="btn-donate">
+              <i class="bi bi-heart-fill"></i>
+              <span>Faire un don</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Bouton Menu Mobile -->
         <button class="mobile-menu-btn" id="mobileMenuBtn">
           <i class="bi bi-list"></i>
         </button>
-        
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="about.html">À propos</a></li>
-          <li><a href="actions.html">Nos Actions</a></li>
-          <li><a href="projects.html">Projets</a></li>
-          <li><a href="blog.html" class="active">Actualités</a></li>
-          <li><a href="donate.html">Don / Partenariat</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
       </nav>
+      
+      <!-- Indicateur de scroll -->
+      <div class="scroll-indicator" id="scrollIndicator"></div>
+    </div>
+    
+    <!-- Overlay Menu Mobile -->
+    <div class="mobile-overlay" id="mobileOverlay">
+      <button class="close-mobile-menu" id="closeMobileMenu">
+        <i class="bi bi-x"></i>
+      </button>
+      
+      <ul class="mobile-nav-links">
+        <li style="--i: 0;">
+          <a href="index.html">
+            <i class="bi bi-house-door"></i>
+            <span>Accueil</span>
+          </a>
+        </li>
+        <li style="--i: 1;">
+          <a href="about.html">
+            <i class="bi bi-info-circle"></i>
+            <span>À propos</span>
+          </a>
+        </li>
+        <li style="--i: 2;">
+          <a href="actions.html">
+            <i class="bi bi-activity"></i>
+            <span>Nos Actions</span>
+          </a>
+        </li>
+        <li style="--i: 3;">
+          <a href="projects.html">
+            <i class="bi bi-folder"></i>
+            <span>Projets</span>
+          </a>
+        </li>
+        <li style="--i: 4;">
+          <a href="blog.html" class="active">
+            <i class="bi bi-newspaper"></i>
+            <span>Actualités</span>
+          </a>
+        </li>
+        <li style="--i: 5;">
+          <a href="contact.html">
+            <i class="bi bi-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <a href="donate.html" class="mobile-donate-btn">
+        <i class="bi bi-heart-fill"></i>
+        <span>Faire un don</span>
+      </a>
     </div>
   </header>
 
@@ -808,16 +1314,19 @@
             <article class="article-card">
               <div class="article-image">
                 <span class="article-category">Santé</span>
-                <img src="./assets/don0.jpg" alt="Consultations gratuites à Poundioum">
+                <img src="assets/images/consult/p6.jpeg" alt="Consultations gratuites à Poundioum">
               </div>
               <div class="article-content">
                 <div class="article-meta">
                   <span><i class="bi bi-calendar"></i> 12 juin 2025</span>
                   <span><i class="bi bi-person"></i> Dr Ousmane Fall</span>
                 </div>
-                <h3 class="article-title">Consultations médicales gratuites à Poundioum</h3>
+                <h3 class="article-title"><a href="article-consultations-poundioum.html">Consultations médicales gratuites à Poundioum</a></h3>
                 <p class="article-excerpt">Retour sur notre journée de consultations gratuites organisée à Poundioum, où plus de 200 patients ont pu bénéficier de soins médicaux et de médicaments.</p>
-                <a href="article-consultations-poundioum.html" class="btn btn-primary">Lire l'article</a>
+                <a href="article-consultations-poundioum.html" class="btn btn-primary">
+                  Lire l'article
+                  <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </article>
             
@@ -832,9 +1341,12 @@
                   <span><i class="bi bi-calendar"></i> 5 mai 2025</span>
                   <span><i class="bi bi-person"></i> Équipe ADE3S</span>
                 </div>
-                <h3 class="article-title">Campagne de reboisement communautaire à Gandon</h3>
+                <h3 class="article-title"><a href="article-reboisement-gandon.html">Campagne de reboisement communautaire à Gandon</a></h3>
                 <p class="article-excerpt">Mobilisation exceptionnelle des jeunes et des communautés locales pour planter 3000 arbres dans la région de Gandon, une étape importante dans notre lutte contre la désertification.</p>
-                <a href="article-reboisement-gandon.html" class="btn btn-primary">Lire l'article</a>
+                <a href="article-reboisement-gandon.html" class="btn btn-primary">
+                  Lire l'article
+                  <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </article>
             
@@ -842,16 +1354,19 @@
             <article class="article-card">
               <div class="article-image">
                 <span class="article-category">Économie</span>
-                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Formation agricole">
+                <img src="assets/env0.jpg" alt="Formation agricole">
               </div>
               <div class="article-content">
                 <div class="article-meta">
                   <span><i class="bi bi-calendar"></i> 18 avril 2025</span>
                   <span><i class="bi bi-person"></i> Équipe ADE3S</span>
                 </div>
-                <h3 class="article-title">Formation des agriculteurs aux techniques durables</h3>
+                <h3 class="article-title"><a href="article-formation-agriculteurs.html">Formation des agriculteurs aux techniques durables</a></h3>
                 <p class="article-excerpt">Notre programme de formation a permis à 50 agriculteurs locaux d'améliorer leurs pratiques agricoles pour une production plus durable et respectueuse de l'environnement.</p>
-                <a href="article-formation-agriculteurs.html" class="btn btn-primary">Lire l'article</a>
+                <a href="article-formation-agriculteurs.html" class="btn btn-primary">
+                  Lire l'article
+                  <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </article>
             
@@ -859,16 +1374,19 @@
             <article class="article-card">
               <div class="article-image">
                 <span class="article-category">Social</span>
-                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Soutien aux familles">
+                <img src="assets/images/reboisements/3.jpg" alt="Soutien aux familles">
               </div>
               <div class="article-content">
                 <div class="article-meta">
                   <span><i class="bi bi-calendar"></i> 2 avril 2025</span>
                   <span><i class="bi bi-person"></i> Équipe ADE3S</span>
                 </div>
-                <h3 class="article-title">Distribution de kits scolaires aux enfants défavorisés</h3>
+                <h3 class="article-title"><a href="article-kits-scolaires.html">Distribution de kits scolaires aux enfants défavorisés</a></h3>
                 <p class="article-excerpt">Dans le cadre de notre programme d'appui à l'éducation, nous avons distribué 500 kits scolaires complets aux enfants des familles les plus vulnérables de la région.</p>
-                <a href="article-kits-scolaires.html" class="btn btn-primary">Lire l'article</a>
+                <a href="article-kits-scolaires.html" class="btn btn-primary">
+                  Lire l'article
+                  <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </article>
             
@@ -876,16 +1394,19 @@
             <article class="article-card">
               <div class="article-image">
                 <span class="article-category">Environnement</span>
-                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sensibilisation environnementale">
+                <img src="assets/plan2.jpg" alt="Sensibilisation environnementale">
               </div>
               <div class="article-content">
                 <div class="article-meta">
                   <span><i class="bi bi-calendar"></i> 15 mars 2025</span>
                   <span><i class="bi bi-person"></i> Équipe ADE3S</span>
                 </div>
-                <h3 class="article-title">Campagne de sensibilisation à la gestion des déchets</h3>
+                <h3 class="article-title"><a href="article-gestion-dechets.html">Campagne de sensibilisation à la gestion des déchets</a></h3>
                 <p class="article-excerpt">Notre équipe a organisé une série d'ateliers de sensibilisation sur la gestion des déchets dans 10 villages de la région, touchant plus de 1000 personnes.</p>
-                <a href="article-gestion-dechets.html" class="btn btn-primary">Lire l'article</a>
+                <a href="article-gestion-dechets.html" class="btn btn-primary">
+                  Lire l'article
+                  <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </article>
             
@@ -893,16 +1414,19 @@
             <article class="article-card">
               <div class="article-image">
                 <span class="article-category">Santé</span>
-                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Don de matériel médical">
+                <img src="assets/don0.jpg" alt="Don de matériel médical">
               </div>
               <div class="article-content">
                 <div class="article-meta">
                   <span><i class="bi bi-calendar"></i> 28 février 2025</span>
                   <span><i class="bi bi-person"></i> Équipe ADE3S</span>
                 </div>
-                <h3 class="article-title">Équipement du centre de santé de Ndiébène Gandiol</h3>
+                <h3 class="article-title"><a href="article-equipement-centre-sante.html">Équipement du centre de santé de Ndiébène Gandiol</a></h3>
                 <p class="article-excerpt">Grâce à nos partenaires, nous avons pu équiper le centre de santé de Ndiébène Gandiol avec du matériel médical essentiel pour améliorer la qualité des soins.</p>
-                <a href="article-equipement-centre-sante.html" class="btn btn-primary">Lire l'article</a>
+                <a href="article-equipement-centre-sante.html" class="btn btn-primary">
+                  Lire l'article
+                  <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </article>
           </div>
@@ -934,11 +1458,11 @@
           <div class="sidebar-widget">
             <h3>Catégories</h3>
             <ul class="categories-list">
-              <li><a href="#">Environnement <span>8</span></a></li>
-              <li><a href="#">Santé <span>6</span></a></li>
-              <li><a href="#">Social <span>5</span></a></li>
-              <li><a href="#">Économie <span>4</span></a></li>
-              <li><a href="#">Événements <span>3</span></a></li>
+              <li><a href="#"><i class="bi bi-folder"></i> Environnement <span>8</span></a></li>
+              <li><a href="#"><i class="bi bi-heart-pulse"></i> Santé <span>6</span></a></li>
+              <li><a href="#"><i class="bi bi-people"></i> Social <span>5</span></a></li>
+              <li><a href="#"><i class="bi bi-graph-up"></i> Économie <span>4</span></a></li>
+              <li><a href="#"><i class="bi bi-calendar-event"></i> Événements <span>3</span></a></li>
             </ul>
           </div>
           
@@ -948,11 +1472,11 @@
             <ul class="recent-posts-list">
               <li class="recent-post">
                 <div class="recent-post-image">
-                  <img src="./assets/don0.jpg" alt="Consultations gratuites">
+                  <img src="assets/images/consult/p6.jpeg" alt="Consultations gratuites">
                 </div>
                 <div class="recent-post-content">
                   <h4><a href="article-consultations-poundioum.html">Consultations médicales gratuites à Poundioum</a></h4>
-                  <span class="post-date">12 juin 2025</span>
+                  <span class="post-date"><i class="bi bi-calendar"></i> 12 juin 2025</span>
                 </div>
               </li>
               <li class="recent-post">
@@ -961,16 +1485,16 @@
                 </div>
                 <div class="recent-post-content">
                   <h4><a href="article-reboisement-gandon.html">Campagne de reboisement à Gandon</a></h4>
-                  <span class="post-date">5 mai 2025</span>
+                  <span class="post-date"><i class="bi bi-calendar"></i> 5 mai 2025</span>
                 </div>
               </li>
               <li class="recent-post">
                 <div class="recent-post-image">
-                  <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Formation agricole">
+                  <img src="assets/env0.jpg" alt="Formation agricole">
                 </div>
                 <div class="recent-post-content">
                   <h4><a href="article-formation-agriculteurs.html">Formation des agriculteurs</a></h4>
-                  <span class="post-date">18 avril 2025</span>
+                  <span class="post-date"><i class="bi bi-calendar"></i> 18 avril 2025</span>
                 </div>
               </li>
             </ul>
@@ -999,7 +1523,10 @@
         <p>Abonnez-vous à notre newsletter pour recevoir les dernières actualités de l'ADE3S directement dans votre boîte mail.</p>
         <form class="newsletter-form">
           <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
-          <button type="submit" class="newsletter-btn">S'abonner</button>
+          <button type="submit" class="newsletter-btn">
+            <i class="bi bi-envelope"></i>
+            S'abonner
+          </button>
         </form>
       </div>
     </div>
@@ -1014,7 +1541,7 @@
           <p>Association pour le Développement Économique, Sanitaire et Social. Œuvrons ensemble pour un développement durable à Saint-Louis, Gandon et ses villages.</p>
           <div class="social-links">
             <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-whatsapp"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
             <a href="#"><i class="bi bi-linkedin"></i></a>
           </div>
@@ -1023,24 +1550,23 @@
         <div class="footer-column">
           <h3>Liens rapides</h3>
           <ul class="footer-links">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="actions.html">Nos Actions</a></li>
-            <li><a href="projects.html">Projets</a></li>
-            <li><a href="blog.html">Actualités</a></li>
-            <li><a href="donate.html">Don / Partenariat</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html"><i class="bi bi-chevron-right"></i> Accueil</a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right"></i> À propos</a></li>
+            <li><a href="actions.html"><i class="bi bi-chevron-right"></i> Nos Actions</a></li>
+            <li><a href="projects.html"><i class="bi bi-chevron-right"></i> Projets</a></li>
+            <li><a href="blog.html"><i class="bi bi-chevron-right"></i> Actualités</a></li>
+            <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Contact</a></li>
           </ul>
         </div>
         
         <div class="footer-column">
           <h3>Nos domaines</h3>
           <ul class="footer-links">
-            <li><a href="actions.html#env">Environnement</a></li>
-            <li><a href="actions.html#sante">Santé</a></li>
-            <li><a href="actions.html#social">Social</a></li>
-            <li><a href="actions.html#social">Économie</a></li>
-            <li><a href="donate.html">Partenariats</a></li>
+            <li><a href="actions.html#env"><i class="bi bi-chevron-right"></i> Environnement</a></li>
+            <li><a href="actions.html#sante"><i class="bi bi-chevron-right"></i> Santé</a></li>
+            <li><a href="actions.html#social"><i class="bi bi-chevron-right"></i> Social</a></li>
+            <li><a href="actions.html#social"><i class="bi bi-chevron-right"></i> Économie</a></li>
+            <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Partenariats</a></li>
           </ul>
         </div>
         
@@ -1048,7 +1574,7 @@
           <h3>Contact</h3>
           <ul class="contact-info">
             <li><i class="bi bi-geo-alt"></i> Saint-Louis, Sénégal</li>
-            <li><i class="bi bi-telephone"></i> +221 33 123 45 67</li>
+            <li><i class="bi bi-telephone"></i> +221 533 57 20</li>
             <li><i class="bi bi-envelope"></i> contact@ade3s.org</li>
             <li><i class="bi bi-clock"></i> Lun - Ven: 9h00 - 17h00</li>
           </ul>
@@ -1062,22 +1588,116 @@
   </footer>
 
   <script>
-    // Menu mobile
+    // Initialisation des éléments DOM
+    const header = document.getElementById('header');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-links a');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const articleCards = document.querySelectorAll('.article-card');
     
-    mobileMenuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('header');
-      if (window.scrollY > 100) {
+    // Gestion du scroll
+    const handleScroll = () => {
+      // Effet sur le header
+      if (window.scrollY > 50) {
         header.classList.add('header-scrolled');
       } else {
         header.classList.remove('header-scrolled');
       }
+      
+      // Indicateur de scroll
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      scrollIndicator.style.width = scrolled + "%";
+      
+      // Animation des cartes d'articles
+      articleCards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        if (cardTop < window.innerHeight - 100) {
+          card.classList.add('visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Menu mobile
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-x"></i>';
+    });
+    
+    closeMobileMenu.addEventListener('click', () => {
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+    });
+    
+    // Fermer le menu en cliquant sur un lien
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+        
+        // Mettre à jour l'état actif
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+    
+    // Fermer le menu en cliquant à l'extérieur
+    mobileOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileOverlay) {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        mobileMenuBtn.innerHTML = '<i class="bi bi-list"></i>';
+      }
+    });
+    
+    // Animation d'apparition des cartes
+    const cardsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    articleCards.forEach(card => {
+      cardsObserver.observe(card);
+    });
+    
+    // Gestion du formulaire newsletter
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('.newsletter-input').value;
+        
+        // Animation de succès
+        const button = this.querySelector('.newsletter-btn');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="bi bi-check"></i> Merci !';
+        button.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))';
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          this.querySelector('.newsletter-input').value = '';
+        }, 3000);
+      });
+    }
+    
+    // Initialiser l'indicateur de scroll
+    scrollIndicator.style.width = '0%';
+    
+    // Initialiser l'état visible pour les cartes dans le viewport
+    document.addEventListener('DOMContentLoaded', () => {
+      handleScroll(); // Vérifier l'état initial
     });
   </script>
 </body>
